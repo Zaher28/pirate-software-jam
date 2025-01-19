@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://cg23asqrdivr5"]
+
+[ext_resource type="PackedScene" uid="uid://d1jy6xb05tyin" path="res://scenes/player/player.tscn" id="1_66seu"]
+[ext_resource type="PackedScene" uid="uid://dcudamu43be3r" path="res://scenes/tower.tscn" id="2_n88vd"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yd3db"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_4sssq"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_lw4ni"]
+flip_faces = true
+size = Vector2(1000, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kfmq2"]
+albedo_color = Color(0.662452, 0.662452, 0.662452, 1)
+
+[node name="Level" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_yd3db")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_4sssq")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_lw4ni")
+material = SubResource("StandardMaterial3D_kfmq2")
+
+[node name="Player" parent="." instance=ExtResource("1_66seu")]
+transform = Transform3D(0.990444, 3.55271e-14, -4.23516e-21, 0, -4.32937e-08, -0.990444, -3.55271e-14, 0.990444, -4.32937e-08, 6.07842, 0.5, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.73519, 0)
+
+[node name="Tower" parent="." instance=ExtResource("2_n88vd")]

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1jy6xb05tyin"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_wwcmp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mjm2m"]
+albedo_color = Color(0.603922, 1, 1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qt2ii"]
+height = 0.1
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(-4.32937e-08, -0.990444, 0, -4.32937e-08, 1.89243e-15, -0.990444, 0.990444, -4.32937e-08, -4.32937e-08, 0, 0.5, 0)
+script = ExtResource("1_wwcmp")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+height = 0.1
+material = SubResource("StandardMaterial3D_mjm2m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_qt2ii")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(7.66364e-09, -0.175324, 0.994309, -1.00965, -4.41331e-08, 0, 4.34626e-08, -0.994309, -0.175324, 2.14935, -3.67358e-08, -0.840417)
