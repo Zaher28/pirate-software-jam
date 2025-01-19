@@ -1,28 +1,46 @@
 extends CharacterBody3D
 
+# I copied this scripts code from 
+# https://docs.godotengine.org/en/stable/getting_started/first_3d_game/03.player_movement_code.html#
+# for reference
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+# How fast the player moves in meters per second.
+@export var speed = 10
+# The downward acceleration when in the air, in meters per second squared.
+@export var fall_acceleration = 75
 
+var target_velocity = Vector3.ZERO
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	# We create a local variable to store the input direction.
+	var direction = Vector3.ZERO
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	# We check for each move input and update the direction accordingly.
+	if Input.is_action_pressed("turn_right"):
+		# Rotate the player to the right
+		direction.x += 1
+	if Input.is_action_pressed("turn_left"):
+		# Rotate the player to the left
+		direction.x -= 1
+	if Input.is_action_pressed("move_back"):
+		# In 3D, the XZ plane is the ground plane.
+		direction.z += 1
+	if Input.is_action_pressed("move_forward"):
+		direction.z -= 1
+	
+	if direction != Vector3.ZERO:
+		direction = direction.normalized()
+		# Setting the basis property will affect the rotation of the node.
+		$Pivot.basis = Basis.looking_at(direction)
+	
+	# Ground Velocity
+	target_velocity.x = direction.x * speed
+	target_velocity.z = direction.z * speed
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+	# Vertical Velocity
+	if not is_on_floor(): # If in the air, fall towards the floor
+		target_velocity.y = target_velocity.y - (fall_acceleration * delta)
 
+	# Moving the Character
+	velocity = target_velocity
 	move_and_slide()

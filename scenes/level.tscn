@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cg23asqrdivr5"]
+[gd_scene load_steps=8 format=3 uid="uid://cg23asqrdivr5"]
 
 [ext_resource type="PackedScene" uid="uid://d1jy6xb05tyin" path="res://scenes/player/player.tscn" id="1_66seu"]
 [ext_resource type="PackedScene" uid="uid://dcudamu43be3r" path="res://scenes/tower.tscn" id="2_n88vd"]
+[ext_resource type="PackedScene" uid="uid://dfvlg2rmeklm7" path="res://scenes/enemy/enemy.tscn" id="3_anh5u"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yd3db"]
 
@@ -28,9 +29,29 @@ mesh = SubResource("QuadMesh_lw4ni")
 material = SubResource("StandardMaterial3D_kfmq2")
 
 [node name="Player" parent="." instance=ExtResource("1_66seu")]
-transform = Transform3D(0.990444, 3.55271e-14, -4.23516e-21, 0, -4.32937e-08, -0.990444, -3.55271e-14, 0.990444, -4.32937e-08, 6.07842, 0.5, 0)
+transform = Transform3D(-4.32937e-08, 0, -0.990444, 0, 0.990444, 0, 0.990444, 0, -4.32937e-08, 6.06631, 1.1, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.73519, 0)
 
 [node name="Tower" parent="." instance=ExtResource("2_n88vd")]
+
+[node name="Enemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_anh5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.01299, 0.25, 6.98588)
+target = NodePath("../Tower")
+speed = 0.01
+
+[node name="Enemy2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_anh5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.72993, 0.25, 8.6489)
+target = NodePath("../Tower")
+speed = 0.01
+
+[node name="Enemy3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_anh5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51922, 0.25, -4.85646)
+target = NodePath("../Tower")
+speed = 0.01
+
+[node name="Enemy4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_anh5u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.26723, 0.25, -11.7361)
+target = NodePath("../Tower")
+speed = 0.01
