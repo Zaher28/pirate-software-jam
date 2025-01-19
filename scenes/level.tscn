@@ -29,7 +29,7 @@ mesh = SubResource("QuadMesh_lw4ni")
 material = SubResource("StandardMaterial3D_kfmq2")
 
 [node name="Player" parent="." instance=ExtResource("1_66seu")]
-transform = Transform3D(-4.32937e-08, 0, -0.990444, 0, 0.990444, 0, 0.990444, 0, -4.32937e-08, 6.06631, 1.1, 0)
+transform = Transform3D(-4.32937e-08, 0, -0.990444, 0, 0.990444, 0, 0.990444, 0, -4.32937e-08, 6.06631, 0.90912, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.73519, 0)
@@ -39,19 +39,15 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.7
 [node name="Enemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_anh5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.01299, 0.25, 6.98588)
 target = NodePath("../Tower")
-speed = 0.01
 
 [node name="Enemy2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_anh5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.72993, 0.25, 8.6489)
 target = NodePath("../Tower")
-speed = 0.01
 
 [node name="Enemy3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_anh5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51922, 0.25, -4.85646)
 target = NodePath("../Tower")
-speed = 0.01
 
 [node name="Enemy4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_anh5u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.26723, 0.25, -11.7361)
 target = NodePath("../Tower")
-speed = 0.01
