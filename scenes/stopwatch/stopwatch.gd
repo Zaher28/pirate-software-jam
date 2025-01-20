@@ -10,7 +10,7 @@ func _process(delta):
 
 func time_to_string(time: float) -> String:
 	#Split the time into its components (seconds, miliseconds)
-	var time_vector = Vector2( fmod(time, 60), fmod(time, 1) * 1000)
+	var time_vector = Vector2(time, fmod(time, 1) * 1000)
 	#format time into string
 	var fstring = "%02d.%03d"
 	var time_string = fstring % [time_vector.x, time_vector.y]
