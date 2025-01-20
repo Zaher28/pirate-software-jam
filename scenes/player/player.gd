@@ -6,10 +6,8 @@ extends CharacterBody3D
 
 # How fast the player accelerates in meters per second squared.
 @export var accel = 10
-# How fast quickly the player slows down.
-@export var friction = 1
 # The maximum speed the player can be traveling in meters per second.
-@export var max_speed = 30
+@export var max_speed = 20
 # The downward acceleration when in the air, in meters per second squared.
 @export var fall_acceleration = 75
 # The base turning speed in degrees per second.
@@ -38,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	# = ratio of difference between e^max_speed and e^speed to e^max_speed (falls off faster at faster speeds)
 	var real_turning_speed = turning_speed
 	if velocity != Vector3.ZERO:
-		real_turning_speed *= (max_speed - velocity.length()) / max_speed
+		real_turning_speed *= (max_speed - abs(velocity.length())) / max_speed
 	if real_turning_speed < min_turning_speed:
 		real_turning_speed = min_turning_speed
 	
@@ -50,6 +48,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("turn_right"):
 		rotation_degrees.y -= real_turning_speed * delta
 		velocity = velocity.rotated(Vector3(0, 1, 0), deg_to_rad(-1 * real_turning_speed * delta))
+	
+	var friction = 0.25 + 0.75 * (max_speed - velocity.length()) / max_speed
 	
 	velocity = velocity.lerp(Vector3.ZERO, friction * delta)
 	

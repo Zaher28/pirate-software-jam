@@ -43,15 +43,13 @@ func spawn_enemy():
 			0,
 			randf_range(-spawn_radius, spawn_radius)
 		)
-		enemy_instance.global_position = self.global_transform.origin + random_offset
-	
-		
 		
 		# Instance the tower and assign it as the enemy's target
 		enemy_instance.target = tower
 
 		# Add the enemy and tower to the current scene
 		get_tree().current_scene.add_child(enemy_instance) # Add the enemy to the scene
+		enemy_instance.global_position = self.global_transform.origin + random_offset
 
 # Helper function for random float range
 func randf_range(min: float, max: float) -> float:
