@@ -12,9 +12,10 @@ extends CharacterBody3D
 @export var fall_acceleration = 75
 # The base turning speed in degrees per second.
 @export var turning_speed = 60
+# The minimum turning speed in degrees per second.
+@export var min_turning_speed = 6
 
 func _physics_process(delta: float) -> void:
-	
 	# find the direction to the camera
 	var dir_to_cam = global_position.direction_to($Camera3D.global_position)
 	# we only want the direction on the xz plane
@@ -27,24 +28,31 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("move_back"):
 		velocity += dir_to_cam * accel * delta
 	
-	# check which way the player is moving relative to the camera
-	var direction = 0
+	# max speed check
+	if velocity.length() > max_speed:
+		velocity = velocity.normalized() * max_speed
+	
+	# determine turning speed based on velocity
+	# = ratio of difference between e^max_speed and e^speed to e^max_speed (falls off faster at faster speeds)
+	var real_turning_speed = turning_speed
 	if velocity != Vector3.ZERO:
-		if (velocity.normalized() - dir_to_cam).length() < 1:
-			direction = -1 # the player is moving toward the camera
-		else:
-			direction = 1 # the player is moving away from the camera
+		real_turning_speed *= (max_speed - velocity.length()) / max_speed
+	if real_turning_speed < min_turning_speed:
+		real_turning_speed = min_turning_speed
 	
 	# turn left -> rotate left about y axis
 	if Input.is_action_pressed("turn_left"):
-		rotation_degrees.y += turning_speed * delta
-		velocity = velocity.rotated(Vector3(0, 1, 0), deg_to_rad(turning_speed * delta))
+		rotation_degrees.y += real_turning_speed * delta
+		velocity = velocity.rotated(Vector3(0, 1, 0), deg_to_rad(real_turning_speed * delta))
 	# turn right -> rotate right about y axis
 	if Input.is_action_pressed("turn_right"):
-		rotation_degrees.y -= turning_speed * delta
-		velocity = velocity.rotated(Vector3(0, 1, 0), deg_to_rad(-1 * turning_speed * delta))
+		rotation_degrees.y -= real_turning_speed * delta
+		velocity = velocity.rotated(Vector3(0, 1, 0), deg_to_rad(-1 * real_turning_speed * delta))
 	
 	# button to switch side of camera
+	if Input.is_action_just_pressed("switch_camera"):
+		$Camera3D.position.x *= -1
+		$Camera3D.rotation_degrees.y *= -1
 	
 	## Vertical Velocity
 	if not is_on_floor(): # If in the air, fall towards the floor

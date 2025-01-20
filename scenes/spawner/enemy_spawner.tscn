@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/spawner/enemy_spawner.gd" id="1_krkdk"]
 [ext_resource type="PackedScene" uid="uid://dfvlg2rmeklm7" path="res://scenes/enemy/enemy.tscn" id="2_umucm"]
-[ext_resource type="PackedScene" uid="uid://dcudamu43be3r" path="res://scenes/tower.tscn" id="3_fe5iv"]
+[ext_resource type="PackedScene" uid="uid://dcudamu43be3r" path="res://scenes/tower/tower.tscn" id="3_fe5iv"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_27al5"]
 

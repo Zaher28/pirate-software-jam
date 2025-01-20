@@ -2,13 +2,13 @@ extends Node3D
 
 # Variables for spawning
 @export var enemy_scene: PackedScene
-@export var tower_scene: PackedScene # The Tower scene to use as the target
 @export var spawn_range: Vector2 = Vector2(1, 5) # A to B (min and max number of enemies)
 @export var interval_range: Vector2 = Vector2(2.0, 5.0) # Min and max interval for spawning
 @export var spawn_radius: float = 5.0
 
 # Internal variables
 var timer: Timer
+var tower
 
 func _ready():
 	# Create and configure a timer for spawning
@@ -18,6 +18,7 @@ func _ready():
 	timer.connect("timeout", Callable(self, "_on_spawn_timer_timeout"))
 	add_child(timer)
 	timer.start()
+	tower = get_tree().get_first_node_in_group("tower")
 
 func _on_spawn_timer_timeout():
 	# Determine how many enemies to spawn
@@ -32,7 +33,7 @@ func _on_spawn_timer_timeout():
 	timer.start()
 
 func spawn_enemy():
-	if enemy_scene and tower_scene:
+	if enemy_scene:
 		# Instance the enemy
 		var enemy_instance = enemy_scene.instantiate()
 
@@ -43,13 +44,13 @@ func spawn_enemy():
 			randf_range(-spawn_radius, spawn_radius)
 		)
 		enemy_instance.global_position = self.global_transform.origin + random_offset
-
+	
+		
+		
 		# Instance the tower and assign it as the enemy's target
-		var tower_instance = tower_scene.instantiate()
-		enemy_instance.target = tower_instance
+		enemy_instance.target = tower
 
 		# Add the enemy and tower to the current scene
-		get_tree().current_scene.add_child(tower_instance) # Add the tower to the scene
 		get_tree().current_scene.add_child(enemy_instance) # Add the enemy to the scene
 
 # Helper function for random float range
