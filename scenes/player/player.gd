@@ -1,11 +1,7 @@
 extends CharacterBody3D
 
-# I copied this scripts code from 
-# https://docs.godotengine.org/en/stable/getting_started/first_3d_game/03.player_movement_code.html#
-# for reference
-
 # How fast the player accelerates in meters per second squared.
-@export var accel = 10
+@export var accel = 12
 # The maximum speed the player can be traveling in meters per second.
 @export var max_speed = 30
 # The downward acceleration when in the air, in meters per second squared.
@@ -14,6 +10,10 @@ extends CharacterBody3D
 @export var turning_speed = 60
 # The minimum turning speed in degrees per second.
 @export var min_turning_speed = 6
+# The minimum speed the wheel must be moving to deal damage.
+@export var danger_speed = 7
+# The amount of damage done per m/s of speed.
+@export var damage_mult = 1
 
 func _physics_process(delta: float) -> void:
 	
@@ -34,7 +34,6 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.normalized() * max_speed
 	
 	# determine turning speed based on velocity
-	# = ratio of difference between e^max_speed and e^speed to e^max_speed (falls off faster at faster speeds)
 	var real_turning_speed = turning_speed
 	if velocity != Vector3.ZERO:
 		real_turning_speed *= (max_speed - abs(velocity.length())) / max_speed
@@ -54,6 +53,13 @@ func _physics_process(delta: float) -> void:
 	
 	velocity = velocity.lerp(Vector3.ZERO, friction * delta)
 	
+	# show the wheel rotating in the direction of the velocity
+	if velocity != Vector3.ZERO:
+		if velocity.normalized().x == dir_to_cam.x and velocity.normalized().z == dir_to_cam.z:
+			$Pivot.rotation_degrees.z += velocity.length()
+		elif velocity.x != 0 or velocity.z != 0:
+			$Pivot.rotation_degrees.z -= velocity.length()
+	
 	# button to switch side of camera
 	if Input.is_action_just_pressed("switch_camera"):
 		$Camera3D.position.x *= -1
@@ -64,4 +70,3 @@ func _physics_process(delta: float) -> void:
 		velocity.y = velocity.y - (fall_acceleration * delta)
 	
 	move_and_slide()
-	
