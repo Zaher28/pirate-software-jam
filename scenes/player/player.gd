@@ -16,6 +16,7 @@ extends CharacterBody3D
 @export var min_turning_speed = 6
 
 func _physics_process(delta: float) -> void:
+	
 	# find the direction to the camera
 	var dir_to_cam = global_position.direction_to($Camera3D.global_position)
 	# we only want the direction on the xz plane
@@ -63,3 +64,4 @@ func _physics_process(delta: float) -> void:
 		velocity.y = velocity.y - (fall_acceleration * delta)
 	
 	move_and_slide()
+	
