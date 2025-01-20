@@ -6,6 +6,8 @@ extends CharacterBody3D
 
 # How fast the player accelerates in meters per second squared.
 @export var accel = 10
+# How fast quickly the player slows down.
+@export var friction = 1
 # The maximum speed the player can be traveling in meters per second.
 @export var max_speed = 30
 # The downward acceleration when in the air, in meters per second squared.
@@ -48,6 +50,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("turn_right"):
 		rotation_degrees.y -= real_turning_speed * delta
 		velocity = velocity.rotated(Vector3(0, 1, 0), deg_to_rad(-1 * real_turning_speed * delta))
+	
+	velocity = velocity.lerp(Vector3.ZERO, friction * delta)
 	
 	# button to switch side of camera
 	if Input.is_action_just_pressed("switch_camera"):
