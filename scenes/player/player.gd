@@ -7,7 +7,7 @@ extends CharacterBody3D
 # How fast the player accelerates in meters per second squared.
 @export var accel = 10
 # The maximum speed the player can be traveling in meters per second.
-@export var max_speed = 20
+@export var max_speed = 30
 # The downward acceleration when in the air, in meters per second squared.
 @export var fall_acceleration = 75
 # The base turning speed in degrees per second.
@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 		rotation_degrees.y -= real_turning_speed * delta
 		velocity = velocity.rotated(Vector3(0, 1, 0), deg_to_rad(-1 * real_turning_speed * delta))
 	
-	var friction = 0.25 + 0.75 * (max_speed - velocity.length()) / max_speed
+	var friction = 0.15 + 0.85 * (max_speed - velocity.length()) / max_speed
 	
 	velocity = velocity.lerp(Vector3.ZERO, friction * delta)
 	
