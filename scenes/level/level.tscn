@@ -49,21 +49,17 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.7
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117884, 4.94552, 0.0680389)
 script = ExtResource("4_6mg1e")
 
-[node name="Enemy" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_h2nnw")]
+[node name="Enemy" parent="." instance=ExtResource("5_h2nnw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.01299, 0.25, 6.98588)
-target = NodePath("../Tower")
 
-[node name="Enemy2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_h2nnw")]
+[node name="Enemy2" parent="." instance=ExtResource("5_h2nnw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.72993, 0.25, 8.6489)
-target = NodePath("../Tower")
 
-[node name="Enemy3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_h2nnw")]
+[node name="Enemy3" parent="." instance=ExtResource("5_h2nnw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.51922, 0.25, -4.85646)
-target = NodePath("../Tower")
 
-[node name="Enemy4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_h2nnw")]
+[node name="Enemy4" parent="." instance=ExtResource("5_h2nnw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.26723, 0.25, -11.7361)
-target = NodePath("../Tower")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("6_wj5dm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.738, -0.0122219, 10.1895)

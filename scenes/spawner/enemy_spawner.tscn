@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://uf3pparja48s"]
+[gd_scene load_steps=4 format=3 uid="uid://uf3pparja48s"]
 
 [ext_resource type="Script" path="res://scenes/spawner/enemy_spawner.gd" id="1_krkdk"]
 [ext_resource type="PackedScene" uid="uid://dfvlg2rmeklm7" path="res://scenes/enemy/enemy.tscn" id="2_umucm"]
-[ext_resource type="PackedScene" uid="uid://dcudamu43be3r" path="res://scenes/tower/tower.tscn" id="3_fe5iv"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_27al5"]
 
@@ -10,7 +9,6 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5928, 5.66492, 10.5041)
 script = ExtResource("1_krkdk")
 enemy_scene = ExtResource("2_umucm")
-tower_scene = ExtResource("3_fe5iv")
 spawn_range = Vector2(0, 0)
 spawn_radius = 20.0
 

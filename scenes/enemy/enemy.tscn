@@ -1,16 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfvlg2rmeklm7"]
+[gd_scene load_steps=4 format=3 uid="uid://dfvlg2rmeklm7"]
 
 [ext_resource type="Script" path="res://scenes/enemy/enemy.gd" id="1_nxcm5"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lflmu"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_dee2h"]
+size = Vector3(1, 0.935547, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_meamq"]
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Enemy" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 script = ExtResource("1_nxcm5")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_lflmu")
-
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0.625)
+shape = SubResource("BoxShape3D_dee2h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_meamq")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
