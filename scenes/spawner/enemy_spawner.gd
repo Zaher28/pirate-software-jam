@@ -2,8 +2,8 @@ extends Node3D
 
 # Variables for spawning
 @export var enemy_scene: PackedScene
-@export var spawn_range: Vector2 = Vector2(1, 5) # A to B (min and max number of enemies)
-@export var interval_range: Vector2 = Vector2(2.0, 5.0) # Min and max interval for spawning
+@export var num_enemies_spawned: Vector2 = Vector2(1, 5) # A to B (min and max number of enemies)
+@export var num_time_interval: Vector2 = Vector2(2.0, 5.0) # Min and max interval for spawning
 @export var spawn_radius: float = 5.0
 
 # Internal variables
@@ -14,7 +14,7 @@ func _ready():
 	# Create and configure a timer for spawning
 	timer = Timer.new()
 	timer.one_shot = false
-	timer.wait_time = randf_range(interval_range.x, interval_range.y)
+	timer.wait_time = randf_range(num_enemies_spawned.x, num_enemies_spawned.y)
 	timer.connect("timeout", Callable(self, "_on_spawn_timer_timeout"))
 	add_child(timer)
 	timer.start()
@@ -22,14 +22,14 @@ func _ready():
 
 func _on_spawn_timer_timeout():
 	# Determine how many enemies to spawn
-	var num_enemies = int(randi_range(spawn_range.x, spawn_range.y))
+	var num_enemies = int(randi_range(num_enemies_spawned.x, num_enemies_spawned.y))
 
 	# Spawn the enemies
 	for i in range(num_enemies):
 		spawn_enemy()
 
 	# Reset the timer with a new random interval
-	timer.wait_time = randf_range(interval_range.x, interval_range.y)
+	timer.wait_time = randf_range(num_time_interval.x, num_time_interval.y)
 	timer.start()
 
 func spawn_enemy():
