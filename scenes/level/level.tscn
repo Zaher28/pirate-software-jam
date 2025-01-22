@@ -21,7 +21,7 @@ size = Vector2(1000, 1000)
 albedo_color = Color(0.662452, 0.662452, 0.662452, 1)
 
 [node name="Level" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9619, -0.588579, -0.109857)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.589, 0)
 script = ExtResource("1_ydqep")
 
 [node name="HUD" parent="." instance=ExtResource("2_vb782")]
@@ -47,7 +47,7 @@ transform = Transform3D(-4.32937e-08, 0, -0.990444, 0, 0.990444, 0, 0.990444, 0,
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16.3021, 0)
 
 [node name="Tower" parent="." groups=["tower"] instance=ExtResource("3_uw762")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117884, 4.94552, 0.0680389)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.946, 0)
 script = ExtResource("4_6mg1e")
 
 [node name="Enemy" parent="." instance=ExtResource("5_h2nnw")]

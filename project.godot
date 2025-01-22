@@ -17,13 +17,15 @@ config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray()
 
 [global_group]
 
 tower=""
 stopwatch=""
 player=""
+minimap_item_locked=""
+enemy=""
 
 [input]
 

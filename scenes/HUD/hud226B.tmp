@@ -1,11 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpidofkh2frbw"]
+[gd_scene load_steps=3 format=3 uid="uid://dpidofkh2frbw"]
 
 [ext_resource type="Script" path="res://scenes/HUD/hud.gd" id="1_5mblm"]
-[ext_resource type="Texture2D" uid="uid://h8eu474sdbe7" path="res://assets/minimap/tower.png" id="2_18ips"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vulj4"]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("stopwatch_label", "highscore_label", "speed_label", "minimap")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("stopwatch_label", "highscore_label", "speed_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,7 +15,6 @@ script = ExtResource("1_5mblm")
 stopwatch_label = NodePath("StopwatchLabel")
 highscore_label = NodePath("HighscoreLabel")
 speed_label = NodePath("SpeedLabel")
-minimap = NodePath("Minimap")
 
 [node name="StopwatchLabel" type="Label" parent="."]
 layout_mode = 1
@@ -42,9 +40,9 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -150.0
-offset_top = 150.0
-offset_bottom = 206.0
+offset_left = -40.0
+offset_top = 40.0
+offset_bottom = 63.0
 grow_horizontal = 0
 horizontal_alignment = 1
 
@@ -53,11 +51,5 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -150.0
-offset_bottom = 150.0
-color = Color(0, 0, 0, 1)
-
-[node name="Tower" type="Sprite2D" parent="Minimap" groups=["minimap_item_locked"]]
-position = Vector2(75, 75)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_18ips")
+offset_left = -40.0
+offset_bottom = 40.0
