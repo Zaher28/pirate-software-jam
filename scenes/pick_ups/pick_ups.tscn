@@ -10,7 +10,7 @@ albedo_texture_msdf = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hg7ji"]
 
-[node name="PickUps" type="Node3D"]
+[node name="PickUps" type="Node3D" groups=["pickup"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.862102, 0)
 script = ExtResource("1_ndain")
 
@@ -29,4 +29,3 @@ collision_mask = 4
 shape = SubResource("BoxShape3D_hg7ji")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Hitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

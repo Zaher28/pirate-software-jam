@@ -10,6 +10,7 @@ var player: Node
 
 var mini_player_tex = load("res://assets/minimap/player.png")
 var mini_enemy_tex = load("res://assets/minimap/enemy.png")
+var mini_pickup_tex = load("res://assets/minimap/pickup.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,6 +43,8 @@ func update_minimap():
 	# draw other entities
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		draw_mini_element(mini_enemy_tex, Vector2(0.05, 0.05), enemy.global_position.x, enemy.global_position.z)
+	for pickup in get_tree().get_nodes_in_group("pickup"):
+		draw_mini_element(mini_pickup_tex, Vector2(0.05, 0.05), pickup.global_position.x, pickup.global_position.z)
 
 # Draw a minimap element
 func draw_mini_element(texture, mini_scale, x, z):

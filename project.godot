@@ -26,6 +26,7 @@ stopwatch=""
 player=""
 minimap_item_locked=""
 enemy=""
+pickup=""
 
 [input]
 
