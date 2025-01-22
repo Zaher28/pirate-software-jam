@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4pxvttgpxdy5"]
+
+[ext_resource type="Script" path="res://scenes/pick_ups/pick_ups.gd" id="1_ndain"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kl6b5"]
+blend_mode = 1
+albedo_color = Color(0.027451, 0.211765, 0.792157, 1)
+albedo_texture_force_srgb = true
+albedo_texture_msdf = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hg7ji"]
+
+[node name="PickUps" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.862102, 0)
+script = ExtResource("1_ndain")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.37909, 0)
+radius = 1.0
+height = 20.0
+material = SubResource("StandardMaterial3D_kl6b5")
+
+[node name="Hitbox" type="Area3D" parent="."]
+transform = Transform3D(0.853553, -0.146447, 0.5, 0.5, 0.5, -0.707107, -0.146447, 0.853553, 0.5, 0, 0.320944, 0)
+collision_layer = 17
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("BoxShape3D_hg7ji")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)

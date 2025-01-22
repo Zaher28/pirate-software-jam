@@ -15,6 +15,8 @@ extends CharacterBody3D
 # The amount of damage done per m/s of speed.
 @export var damage_mult = 1
 
+var has_pickup = false
+
 func _physics_process(delta: float) -> void:
 	
 	# find the direction to the camera
@@ -69,4 +71,22 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor(): # If in the air, fall towards the floor
 		velocity.y = velocity.y - (fall_acceleration * delta)
 	
+	# button to use pickup
+	if Input.is_action_just_pressed("use_pickup"):
+		if has_pickup:
+			use_pickup()
+	
 	move_and_slide()
+
+#Logic for giving player a pickup (random weighted number?)
+func get_pickup():
+	if !has_pickup:
+		print("Got a pickup!")
+		has_pickup = true
+	else:
+		pass
+
+#Logic for using pickup
+func use_pickup():
+	print("Used a pickup!")
+	has_pickup = false

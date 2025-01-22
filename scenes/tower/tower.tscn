@@ -9,6 +9,7 @@ radius = 2.0
 
 [node name="Tower" type="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+collision_layer = 3
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
 radius = 2.0

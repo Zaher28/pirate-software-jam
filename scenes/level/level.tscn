@@ -29,6 +29,7 @@ script = ExtResource("1_ydqep")
 [node name="Stopwatch" parent="." instance=ExtResource("2_tb8yx")]
 
 [node name="Floor" type="StaticBody3D" parent="."]
+collision_layer = 3
 physics_material_override = SubResource("PhysicsMaterial_yd3db")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
@@ -43,7 +44,7 @@ material = SubResource("StandardMaterial3D_kfmq2")
 transform = Transform3D(-4.32937e-08, 0, -0.990444, 0, 0.990444, 0, 0.990444, 0, -4.32937e-08, 6.06631, 0.90912, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.73519, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16.3021, 0)
 
 [node name="Tower" parent="." groups=["tower"] instance=ExtResource("3_uw762")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117884, 4.94552, 0.0680389)
@@ -63,8 +64,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.26723, 0.25, -11.7361)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("6_wj5dm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.738, -0.0122219, 10.1895)
-spawn_range = Vector2(1, 5)
-interval_range = Vector2(1, 3)
 spawn_radius = 5.0
 
 [connection signal="death" from="Tower" to="Stopwatch" method="_on_tower_death"]
