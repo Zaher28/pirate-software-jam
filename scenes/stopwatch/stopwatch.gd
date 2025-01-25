@@ -41,6 +41,7 @@ func _on_tower_death():
 		print("Previous Highscore: %.3f seconds" % [get_parent().load_highscore()])
 
 func spawn_pickup():
+	
 	var power = pickup.instantiate()
 	
 	var random_spawn = Vector2(randf_range(5.0, 50.0), randf_range(5.0, 50.0))

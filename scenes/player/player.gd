@@ -16,6 +16,7 @@ extends CharacterBody3D
 @export var damage_mult = 1
 
 var has_pickup = false
+var pickup: Pickups
 
 func _physics_process(delta: float) -> void:
 	
@@ -79,14 +80,16 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 #Logic for giving player a pickup (random weighted number?)
-func get_pickup():
+func get_pickup(pickup: Pickups):
 	if !has_pickup:
 		print("Got a pickup!")
 		has_pickup = true
+		self.pickup = pickup
 	else:
 		pass
 
 #Logic for using pickup
 func use_pickup():
+	pickup.use()
 	print("Used a pickup!")
 	has_pickup = false
