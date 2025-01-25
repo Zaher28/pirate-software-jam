@@ -23,7 +23,7 @@ func _process(delta):
 	update_stopwatch()
 	update_speed()
 	update_minimap()
-	
+
 # Time to String to Label
 func update_stopwatch():
 	stopwatch_label.text = stopwatch.time_to_string(stopwatch.time_alive)

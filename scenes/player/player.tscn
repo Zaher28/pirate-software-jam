@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1jy6xb05tyin"]
+[gd_scene load_steps=5 format=3 uid="uid://d1jy6xb05tyin"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_wwcmp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p5qxt"]
+size = Vector3(1.25, 2.25, 2)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_qt2ii"]
 height = 0.1
@@ -9,22 +12,29 @@ height = 0.1
 albedo_color = Color(0.603922, 1, 1, 1)
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
-transform = Transform3D(0.990444, 0, 0, 0, 0.990444, 0, 0, 0, 0.990444, 0, 0, 0)
 collision_layer = 5
 collision_mask = 26
 script = ExtResource("1_wwcmp")
 
+[node name="Hitbox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+shape = SubResource("BoxShape3D_p5qxt")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(2, 0, 0, 0, -8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0)
 shape = SubResource("CylinderShape3D_qt2ii")
 
 [node name="Pivot" type="Node3D" parent="."]
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="Pivot"]
-transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(3.82138e-15, 8.74228e-08, 2, 2, -8.74228e-08, -7.19978e-21, 8.74228e-08, 2, -8.74228e-08, 0, 0, 0)
 height = 0.1
 material = SubResource("StandardMaterial3D_mjm2m")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.41331e-08, 0, 1.00965, 0, 1.00965, 0, -1.00965, 0, -4.41331e-08, 3.93469, 1.00754, 0)
+transform = Transform3D(-4.41332e-08, -0.261317, 0.975247, 0, 0.975247, 0.261317, -1.00965, 1.14225e-08, -4.26294e-08, 4, 2, 0)
 current = true
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

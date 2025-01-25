@@ -7,13 +7,17 @@ extends CharacterBody3D
 # The downward acceleration when in the air, in meters per second squared.
 @export var fall_acceleration = 75
 # The base turning speed in degrees per second.
-@export var turning_speed = 60
+@export var turning_speed = 80
 # The minimum turning speed in degrees per second.
 @export var min_turning_speed = 6
 # The minimum speed the wheel must be moving to deal damage.
 @export var danger_speed = 7
 # The amount of damage done per m/s of speed.
 @export var damage_mult = 1
+# Base hitbox width.
+@export var base_hitbox_width = 1.25
+# How much to scale the hitbox with speed, to ensure damage check occurs before collision.
+@export var hitbox_scale_value = 0.1
 
 var has_pickup = false
 var pickup: Pickups
@@ -63,12 +67,21 @@ func _physics_process(delta: float) -> void:
 		elif velocity.x != 0 or velocity.z != 0:
 			$Pivot.rotation_degrees.z -= velocity.length()
 	
+	# manipulate the hitbox based on magnitude/direction of velocity
+	if dir_to_cam.angle_to(velocity.normalized()) > 3: # if moving away, angle will be close to pi radians, otherwise close to 0
+		if sign($Hitbox/CollisionShape3D.position.x) == sign($Camera3D.position.x):
+			$Hitbox/CollisionShape3D.position.x = -1 * sign($Camera3D.position.x)
+	else:
+		if sign($Hitbox/CollisionShape3D.position.x) != sign($Camera3D.position.x):
+			$Hitbox/CollisionShape3D.position.x = sign($Camera3D.position.x)
+	$Hitbox/CollisionShape3D.shape.size.x = (base_hitbox_width + (hitbox_scale_value * velocity.length())) / scale.x
+	
 	# button to switch side of camera
 	if Input.is_action_just_pressed("switch_camera"):
 		$Camera3D.position.x *= -1
 		$Camera3D.rotation_degrees.y *= -1
 	
-	## Vertical Velocity
+	# Vertical Velocity
 	if not is_on_floor(): # If in the air, fall towards the floor
 		velocity.y = velocity.y - (fall_acceleration * delta)
 	
@@ -93,3 +106,11 @@ func use_pickup():
 	pickup.use()
 	print("Used a pickup!")
 	has_pickup = false
+
+# Logic for damaging enemies
+func _on_hitbox_body_entered(body):
+	if velocity.length() > danger_speed and body.is_in_group("enemy"):
+		if body.health > damage_mult * velocity.length():
+			pass # handle what happens if the enemy doesn't die from the hit
+		body.hurt(damage_mult * velocity.length())
+		print(damage_mult * velocity.length())
