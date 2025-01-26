@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1jy6xb05tyin"]
+[gd_scene load_steps=8 format=3 uid="uid://d1jy6xb05tyin"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_wwcmp"]
 
@@ -10,6 +10,42 @@ height = 0.1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mjm2m"]
 albedo_color = Color(0.603922, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_2okkx"]
+resource_name = "Grow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(3, 3, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_hehum"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4y0l4"]
+_data = {
+"Grow": SubResource("Animation_2okkx"),
+"RESET": SubResource("Animation_hehum")
+}
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
 collision_layer = 5
@@ -34,7 +70,16 @@ height = 0.1
 material = SubResource("StandardMaterial3D_mjm2m")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.41332e-08, -0.261317, 0.975247, 0, 0.975247, 0.261317, -1.00965, 1.14225e-08, -4.26294e-08, 4, 2, 0)
+transform = Transform3D(-4.37114e-08, -0.258819, 0.965926, 0, 0.965926, 0.258819, -1, 1.13134e-08, -4.2222e-08, 4, 2.51352, 0)
 current = true
+
+[node name="PickupTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4y0l4")
+}
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

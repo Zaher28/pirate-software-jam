@@ -6,6 +6,7 @@ signal get_pickup
 var pickup: Pickups
 var player: Node
 
+
 var rotation_speed = .05
 #For RNG
 var rng = RandomNumberGenerator.new()
@@ -13,11 +14,22 @@ var rng = RandomNumberGenerator.new()
 class GrowPickUp:
 	extends Pickups
 	
+	var passive = true
+	var grow_multiplier = Vector3(4,2,4)
+	var grow_danger_speed = 5
+	
 	func _init(player: Node):
 		self.player = player
 	
+	#When pickup is used
 	func use():
-		player.scale = Vector3(player.scale.x*3,player.scale.y*3,player.scale.z*3)
+		player.find_child("Animation").play("Grow")
+		player.danger_speed = grow_danger_speed
+
+	#When pickup time passes (I think only for passives?)
+	func revert():
+		player.find_child("Animation").play_backwards()
+		player.danger_speed = 7
 
 func _ready():
 	rng.randomize()

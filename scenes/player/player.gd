@@ -20,7 +20,12 @@ extends CharacterBody3D
 @export var hitbox_scale_value = 0.1
 
 var has_pickup = false
+var using_pickup = false
 var pickup: Pickups
+var pickup_time = 10
+
+func _ready():
+	$PickupTimer.timeout.connect(_on_pickup_finished)
 
 func _physics_process(delta: float) -> void:
 	
@@ -103,9 +108,18 @@ func get_pickup(pickup: Pickups):
 
 #Logic for using pickup
 func use_pickup():
-	pickup.use()
-	print("Used a pickup!")
-	has_pickup = false
+	#If a pickup isnt currently happening, use pickup
+	if !using_pickup:
+		pickup.use()
+		print("Used a pickup!")
+		has_pickup = false
+		#If the pickup is a passive one, start pickup timer (default 10s rn)
+		if pickup.passive == true:
+			using_pickup = true
+			$PickupTimer.start(pickup_time)
+	else:
+		print("Currently using a pickup!")
+		pass
 
 # Logic for damaging enemies
 func _on_hitbox_body_entered(body):
@@ -114,3 +128,8 @@ func _on_hitbox_body_entered(body):
 			pass # handle what happens if the enemy doesn't die from the hit
 		body.hurt(damage_mult * velocity.length())
 		print(damage_mult * velocity.length())
+
+#When pickup time passes
+func _on_pickup_finished():
+	using_pickup = false
+	pickup.revert()
