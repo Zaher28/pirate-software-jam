@@ -1,27 +1,11 @@
-extends CharacterBody3D
-class_name Enemy
-
-@export var target: Node3D
-@export var health: int
-@export var speed: float
-@export var damage: int # Damage dealt to the tower
-@export var ignore_player: bool # Enemy will not avoid player
-
-enum STATE {
-	NEUTRAL, # Move towards center, not in danger
-	FLEEING # Sees player character, steer away from it
-}
-
-var flee_range = 20 # Higher values cause enemy flee steering force to increase, and vice versa
-var flee_from_target: Node3D = null
-var curr_state = STATE.NEUTRAL
+extends Enemy
 
 func _ready() -> void:
 	damage = 1
 	ignore_player = false
-	speed = 1
-	health = 10
-	$"Cone of Vision".body_entered.connect(is_in_on_sight) # Connects signal to
+	speed = 3
+	health = 8
+	$"Cone of Vision".body_entered.connect(is_in_on_sight)
 
 func _physics_process(delta: float) -> void:
 	if !is_instance_valid(self): return
@@ -49,11 +33,11 @@ func _physics_process(delta: float) -> void:
 		avoid_player_velocity.y = 0
 		if distance_from_player < flee_range:
 			# The further the enemy is from the player, the more it will steer towards tower
-			var seek_target_steer = (seek_target_velocity - velocity) * (distance_from_player / flee_range) 
+			var seek_target_steer = (seek_target_velocity - velocity) * (distance_from_player / flee_range)
 			seek_target_steer.y = 0
 			
 			# The closer the enemy is to the player, the more it will steer away from player
-			var avoid_player_steer = (velocity + avoid_player_velocity) * (1 - (distance_from_player / flee_range)) 
+			var avoid_player_steer = (velocity + avoid_player_velocity) * (1 - (distance_from_player / flee_range))
 			avoid_player_steer.y = 0
 
 			velocity = (velocity + avoid_player_steer + seek_target_steer).normalized() * speed
@@ -63,20 +47,3 @@ func _physics_process(delta: float) -> void:
 			velocity = (velocity + seek_target_steer).normalized() * speed
 	look_at(velocity) # Have enemy face towards their velocity (which would be towards the tower)
 	move_and_slide()
-
-func is_in_on_sight(body: Node3D) -> void:
-	if ignore_player: return
-	if body.name == "Player":
-		curr_state = STATE.FLEEING
-		flee_from_target = body
-		$Timer.start()
-
-func hurt(damage):
-	health -= damage
-	if health <= 0:
-		queue_free()
-
-# After timer expires, set the current state back to neutral, and remove target from target tracking
-func _on_timer_timeout() -> void:
-	curr_state = STATE.NEUTRAL
-	flee_from_target = null
