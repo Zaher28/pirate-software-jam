@@ -41,7 +41,7 @@ mesh = SubResource("QuadMesh_lw4ni")
 material = SubResource("StandardMaterial3D_kfmq2")
 
 [node name="Player" parent="." instance=ExtResource("2_v56n4")]
-transform = Transform3D(-4.32937e-08, 0, -0.990444, 0, 0.990444, 0, 0.990444, 0, -4.32937e-08, 6.06631, 0.90912, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.06631, 0.90912, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16.3021, 0)
