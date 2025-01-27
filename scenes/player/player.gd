@@ -111,12 +111,17 @@ func use_pickup():
 	#If a pickup isnt currently happening, use pickup
 	if !using_pickup:
 		pickup.use()
-		print("Used a pickup!")
-		has_pickup = false
 		#If the pickup is a passive one, start pickup timer (default 10s rn)
 		if pickup.passive == true:
 			using_pickup = true
 			$PickupTimer.start(pickup_time)
+			has_pickup = false
+			print("Used a pickup!")
+		else:
+			pickup.uses -= 1
+			if pickup.uses <= 0:
+				_on_pickup_finished()
+				has_pickup = false
 	else:
 		print("Currently using a pickup!")
 		pass
@@ -129,7 +134,8 @@ func _on_hitbox_body_entered(body):
 		body.hurt(damage_mult * velocity.length())
 		print(damage_mult * velocity.length())
 
-#When pickup time passes
+#When pickup time passes or when pickup uses depleted
 func _on_pickup_finished():
 	using_pickup = false
 	pickup.revert()
+	pickup.queue_free()

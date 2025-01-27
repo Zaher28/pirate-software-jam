@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://qxpg22m4tj8q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_74re2"]
+size = Vector3(3.58618, 7.642, 10)
+
+[node name="GunCone" type="Area3D"]
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.0128976, 0.999917, 0, -0.999917, 0.0128976, 0, 0, 0, 1, -3.72895, 0.00871861, -0.201111)
+shape = SubResource("BoxShape3D_74re2")

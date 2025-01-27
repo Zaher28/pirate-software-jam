@@ -3,7 +3,7 @@ extends Node
 @export var pickup: PackedScene
 var time_alive: float = 0.0
 var we_lost = false
-var time_to_spawn_pickup = 10
+var time_to_spawn_pickup = 5
 #check for pickup spawn
 var pickup_check = 0
 
@@ -47,5 +47,6 @@ func spawn_pickup():
 	var random_spawn = Vector2(randf_range(5.0, 50.0), randf_range(5.0, 50.0))
 	
 	get_tree().current_scene.add_child(power)
+	print(power.gun)
 	power.global_position = Vector3(random_spawn.x, .5, random_spawn.y)
 	

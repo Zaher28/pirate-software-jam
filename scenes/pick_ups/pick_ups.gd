@@ -1,19 +1,59 @@
 extends Node3D
 class_name Pickups
 
-signal get_pickup
+@export var gun: PackedScene
 
 var pickup: Pickups
 var player: Node
-
 
 var rotation_speed = .05
 #For RNG
 var rng = RandomNumberGenerator.new()
 
+class ShotgunPickUp:
+	extends Pickups
+	
+	var _name = "Shotgun"
+	
+	var passive = false
+	var uses = 10
+	var enemies_in_area := {} 
+	var shotgun_damage = 25
+	var gun_cone
+	
+	func _init(player: Node, gun: PackedScene):
+		self.player = player
+		self.gun = gun
+		
+	func setup():
+		gun_cone = gun.instantiate()
+		gun_cone.body_entered.connect(_on_shotgun_cone_entered)
+		gun_cone.body_exited.connect(_on_shotgun_cone_exited)
+		self.player.add_child(gun_cone)
+		
+	func use():
+		print("Shoot!")
+		for enemy in enemies_in_area:
+			enemy.hurt(shotgun_damage)
+			
+	func _on_shotgun_cone_entered(body: Node3D):
+		if body.is_in_group("enemy"):
+			enemies_in_area[body] = null
+
+	func _on_shotgun_cone_exited(body: Node3D):
+		if body.is_in_group("enemy"):
+			enemies_in_area.erase(body)
+	
+	func revert():
+		print("Gun no more")
+		self.player.remove_child(gun_cone)
+		gun_cone.queue_free()
+			
 #Pickup that kills enemy on contact
 class InstakillPickUp:
 	extends Pickups
+	
+	var _name = "Instakill"
 	
 	var passive = true
 	var instakill_danger_speed_change = 7
@@ -34,6 +74,8 @@ class InstakillPickUp:
 class GrowPickUp:
 	extends Pickups
 	
+	var _name = "Grow"
+	
 	var passive = true
 	
 	func _init(player: Node):
@@ -51,12 +93,19 @@ func _ready():
 	rng.randomize()
 	$Hitbox.body_entered.connect(give_pickup) #Connect signal to give_pickup
 	player = get_tree().get_first_node_in_group("player")
-	var random_number = rng.randi_range(0, 1)
+	
+	var random_number = rng.randi_range(0, 2)
 	
 	if random_number == 0:
 		pickup = GrowPickUp.new(player)
-	else:
+	elif random_number == 1:
+		pickup = ShotgunPickUp.new(player, gun)
+	elif random_number == 2:
 		pickup = InstakillPickUp.new(player)
+		
+func setup():
+	pass
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#Give it rotating effect
@@ -66,7 +115,8 @@ func _process(delta):
 func give_pickup(body: Node3D):
 	if body.name == "Player":
 		if body.has_pickup == false and body.using_pickup == false:
+			pickup.setup()
 			body.get_pickup(pickup)
-			print("Obtained %s" % [pickup.get_name()])
+			print("Obtained %s" % [pickup._name])
 			queue_free()
 	

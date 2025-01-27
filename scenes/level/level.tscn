@@ -46,7 +46,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.0663
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16.3021, 0)
 
-[node name="Tower" parent="." groups=["tower"] instance=ExtResource("3_uw762")]
+[node name="Tower" parent="." instance=ExtResource("3_uw762")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.946, 0)
 script = ExtResource("4_6mg1e")
 
@@ -68,4 +68,5 @@ spawn_radius = 5.0
 
 [connection signal="death" from="Tower" to="Stopwatch" method="_on_tower_death"]
 
+[editable path="Player"]
 [editable path="Tower"]
