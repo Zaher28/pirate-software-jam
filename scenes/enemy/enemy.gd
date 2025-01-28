@@ -19,7 +19,7 @@ var curr_state = STATE.NEUTRAL
 func _ready() -> void:
 	damage = 1
 	ignore_player = false
-	speed = 1
+	speed = 1.0
 	health = 10
 	$"Cone of Vision".body_entered.connect(is_in_on_sight) # Connects signal to
 
@@ -31,6 +31,7 @@ func _physics_process(delta: float) -> void:
 		# print(target.has_method("take_damage"))
 		# print(target)
 		if target.has_method("take_damage"):
+			print("Damage given: ", damage)
 			target.take_damage(damage)
 		queue_free()  # Destroy the enemy after dealing damage
 	
