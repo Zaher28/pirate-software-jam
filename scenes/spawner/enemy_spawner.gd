@@ -5,6 +5,7 @@ extends Node3D
 @export var num_time_interval: Vector2 = Vector2(2.0, 5.0) # Min and max interval for spawning
 @export var spawn_radius: float = 5.0
 @export var greedy_algorithm: bool = false
+@export var health: int
 
 const _BIG_CRED: int = 5
 const _FAST_CRED: int = 3
@@ -83,3 +84,8 @@ func randf_range(min: float, max: float) -> float:
 # Helper function for random integer range
 func randi_range(min: int, max: int) -> int:
 	return int(randf_range(float(min), float(max)) + 0.5)
+
+func hurt(damage):
+	health -= damage
+	if health <= 0:
+		queue_free()

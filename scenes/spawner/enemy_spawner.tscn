@@ -1,16 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://uf3pparja48s"]
+[gd_scene load_steps=5 format=3 uid="uid://uf3pparja48s"]
 
 [ext_resource type="Script" path="res://scenes/spawner/enemy_spawner.gd" id="1_krkdk"]
 [ext_resource type="PackedScene" uid="uid://dfvlg2rmeklm7" path="res://scenes/enemy/enemy.tscn" id="2_umucm"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_27al5"]
 
-[node name="EnemySpawner" type="Node3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1ilj4"]
+
+[node name="EnemySpawner" type="StaticBody3D" groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5928, 5.66492, 10.5041)
 script = ExtResource("1_krkdk")
 enemy_scene = ExtResource("2_umucm")
 spawn_radius = 20.0
+health = 7
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.993878, 0, 0.11048, 0, 1, 0, -0.11048, 0, 0.993878, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_27al5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_1ilj4")
