@@ -71,7 +71,8 @@ func spawn_enemy(scene: PackedScene):
 	)
 	
 	# Instance the tower and assign it as the enemy's target
-	enemy_instance.target = tower
+	if tower:
+		enemy_instance.target = tower
 
 	# Add the enemy and tower to the current scene
 	get_tree().current_scene.add_child(enemy_instance) # Add the enemy to the scene
