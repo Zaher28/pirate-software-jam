@@ -85,6 +85,8 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("switch_camera"):
 		$Camera3D.position.x *= -1
 		$Camera3D.rotation_degrees.y *= -1
+		if get_tree().get_first_node_in_group("shotgun_cone"):
+			get_tree().get_first_node_in_group("shotgun_cone").rotation_degrees.y += 180
 	
 	# Vertical Velocity
 	if not is_on_floor(): # If in the air, fall towards the floor

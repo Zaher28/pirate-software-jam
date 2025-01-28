@@ -27,6 +27,7 @@ player=""
 minimap_item_locked=""
 enemy=""
 pickup=""
+shotgun_cone=""
 
 [input]
 

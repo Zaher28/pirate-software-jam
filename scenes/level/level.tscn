@@ -23,6 +23,7 @@ albedo_color = Color(0.662452, 0.662452, 0.662452, 1)
 [node name="Level" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.589, 0)
 script = ExtResource("1_ydqep")
+spawner_scene = ExtResource("6_wj5dm")
 
 [node name="HUD" parent="." instance=ExtResource("2_vb782")]
 
