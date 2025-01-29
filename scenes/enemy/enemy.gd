@@ -15,12 +15,14 @@ enum STATE {
 var flee_range = 20 # Higher values cause enemy flee steering force to increase, and vice versa
 var flee_from_target: Node3D = null
 var curr_state = STATE.NEUTRAL
+var controller
 
 func _ready() -> void:
-	damage = 1
+	controller = get_tree().get_first_node_in_group("game_controller")
+	damage = controller.enemy_stat_scalar_fin_int(1)
 	ignore_player = false
-	speed = 1.0
-	health = 10
+	speed = 1.0 * controller.enemy_stat_scalar_float()
+	health = controller.enemy_stat_scalar_fin_int(10)
 	$"Cone of Vision".body_entered.connect(is_in_on_sight) # Connects signal to
 
 func _physics_process(delta: float) -> void:

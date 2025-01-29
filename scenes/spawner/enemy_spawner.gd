@@ -14,6 +14,7 @@ const _NORM_CRED: int = 1
 # Internal variables
 var timer: Timer
 var tower
+var controller
 
 func _ready():
 	# Create and configure a timer for spawning
@@ -24,9 +25,13 @@ func _ready():
 	add_child(timer)
 	timer.start()
 	tower = get_tree().get_first_node_in_group("tower")
+	controller = get_tree().get_first_node_in_group("game_controller")
 
 func _on_spawn_timer_timeout():
-	var enemy_credit = int(randi_range(1, 12))
+	var enemy_credit
+	if controller:
+		enemy_credit = controller.enemy_credit_int()
+	
 	var num_big = 0
 	var num_fast = 0
 	var num_norm = 0
@@ -71,7 +76,7 @@ func spawn_enemy(scene: PackedScene):
 	)
 	
 	# Instance the tower and assign it as the enemy's target
-	if tower:
+	if is_instance_valid(tower):
 		enemy_instance.target = tower
 
 	# Add the enemy and tower to the current scene

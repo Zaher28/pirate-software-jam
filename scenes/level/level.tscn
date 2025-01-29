@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://cg23asqrdivr5"]
+[gd_scene load_steps=14 format=3 uid="uid://cg23asqrdivr5"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_ydqep"]
 [ext_resource type="PackedScene" uid="uid://kbhy7uhmpad1" path="res://scenes/stopwatch/stopwatch.tscn" id="2_tb8yx"]
 [ext_resource type="PackedScene" uid="uid://d1jy6xb05tyin" path="res://scenes/player/player.tscn" id="2_v56n4"]
 [ext_resource type="PackedScene" uid="uid://dpidofkh2frbw" path="res://scenes/HUD/hud.tscn" id="2_vb782"]
 [ext_resource type="PackedScene" uid="uid://dcudamu43be3r" path="res://scenes/tower/tower.tscn" id="3_uw762"]
+[ext_resource type="PackedScene" uid="uid://hyqqq5t2xmbo" path="res://scenes/game_controller/game_controller.tscn" id="4_4e6m2"]
 [ext_resource type="Script" path="res://scenes/tower/tower.gd" id="4_6mg1e"]
 [ext_resource type="PackedScene" uid="uid://dfvlg2rmeklm7" path="res://scenes/enemy/enemy.tscn" id="5_h2nnw"]
 [ext_resource type="PackedScene" uid="uid://uf3pparja48s" path="res://scenes/spawner/enemy_spawner.tscn" id="6_wj5dm"]
@@ -26,6 +27,8 @@ script = ExtResource("1_ydqep")
 spawner_scene = ExtResource("6_wj5dm")
 
 [node name="HUD" parent="." instance=ExtResource("2_vb782")]
+
+[node name="GameController" parent="." instance=ExtResource("4_4e6m2")]
 
 [node name="Stopwatch" parent="." instance=ExtResource("2_tb8yx")]
 
