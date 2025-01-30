@@ -22,7 +22,7 @@ func _ready() -> void:
 	damage = controller.enemy_stat_scalar_fin_int(1)
 	ignore_player = false
 	speed = 1.0 * controller.enemy_stat_scalar_float()
-	health = controller.enemy_stat_scalar_fin_int(10)
+	health = controller.enemy_stat_scalar_fin_int(9)
 	$"Cone of Vision".body_entered.connect(is_in_on_sight) # Connects signal to
 
 func _physics_process(delta: float) -> void:

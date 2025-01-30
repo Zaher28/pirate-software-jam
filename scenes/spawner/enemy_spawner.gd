@@ -2,7 +2,7 @@ extends Node3D
 
 # Variables for spawning
 @export var enemy_scene: PackedScene
-@export var num_time_interval: Vector2 = Vector2(2.0, 5.0) # Min and max interval for spawning
+@export var num_time_interval: Vector2 = Vector2(5.0, 7.0) # Min and max interval for spawning
 @export var spawn_radius: float = 5.0
 @export var greedy_algorithm: bool = false
 @export var health: int
@@ -31,7 +31,7 @@ func _on_spawn_timer_timeout():
 	var enemy_credit
 	if controller:
 		enemy_credit = controller.enemy_credit_int()
-	
+	# print("enemy credit now: ", enemy_credit)
 	var num_big = 0
 	var num_fast = 0
 	var num_norm = 0
@@ -44,11 +44,13 @@ func _on_spawn_timer_timeout():
 		if enemy_credit > _BIG_CRED:
 			num_big = 1
 			enemy_credit -= _BIG_CRED
+			
 
 	num_fast = enemy_credit / _FAST_CRED
-	enemy_credit = enemy_credit % _BIG_CRED
+	enemy_credit = enemy_credit % _FAST_CRED
 	num_norm = enemy_credit / _NORM_CRED
-
+	# print("num_big: ", num_big, ", num_fast: ", num_fast, ", num_norm: ", num_norm)
+	
 	# Spawn the enemies
 	if num_big > 0:
 		for i in range(num_big):
@@ -95,3 +97,4 @@ func hurt(damage):
 	health -= damage
 	if health <= 0:
 		queue_free()
+		

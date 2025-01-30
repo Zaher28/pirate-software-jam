@@ -13,26 +13,31 @@ func _process(delta: float) -> void:
 func enemy_credit_float() -> float:
 	if time == 0.0:
 		return 0
-	return 1.5 * (sqrt(time)-log(time))
+	return (sqrt(0.2 * time))
 	
 func enemy_credit_int() -> int:
 	if time == 0.0:
 		return 0
-	return int(1.5 * (sqrt(time)-log(time)))
+	return int((sqrt(0.2 * time)))
 	
 func enemy_stat_scalar_float() -> float:
-	if time <= 10:
-		return 1.0
-	if time <= 30:
-		return 1 + (time - 10) * (.25 / 20)
-	return 1.25 + (time - 30) * (.75 / 20)
+	return 2 - exp(-time / 433)
 	
 func enemy_stat_scalar_fin_int(initial: int) -> int:
-	if time <= 10:
-		return initial
-	if time <= 30:
-		return int((1 + (time - 10) * (.25 / 20)) * initial)
-	return int((1.25 + (time - 30) * (.75 / 20)) * initial)
+	return int(initial * (2 - exp(-time / 433)))
+	
+func enemy_stat_scalar_fin_int_offset(initial: int, offset: float) -> int:
+	return int(initial * (2 - exp(-(time - offset) / 433)))
+	
+func enemy_spawntime_float() -> float:
+	if time == 0.0:
+		return 0
+	return (sqrt(0.2 * time))
+	
+func enemy_spawntime_int() -> int:
+	if time == 0.0:
+		return 0
+	return int((sqrt(0.2 * time)))
 
 #func enemy_stat_scalar_float() -> float:
 	#if time <= 90:

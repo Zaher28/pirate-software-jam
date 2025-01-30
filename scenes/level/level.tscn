@@ -68,7 +68,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.26723, 0.25, -11.7361)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("6_wj5dm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.738, -0.0122219, 10.1895)
-spawn_radius = 5.0
 
 [connection signal="death" from="Tower" to="Stopwatch" method="_on_tower_death"]
 

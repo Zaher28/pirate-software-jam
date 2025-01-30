@@ -5,5 +5,5 @@ func _ready() -> void:
 	damage = controller.enemy_stat_scalar_fin_int(10)
 	ignore_player = true
 	speed = 0.25 * controller.enemy_stat_scalar_float()
-	health = controller.enemy_stat_scalar_fin_int(20)
+	health = controller.enemy_stat_scalar_fin_int_offset(12, 125)
 	$"Cone of Vision".body_entered.connect(is_in_on_sight) # Connects signal to
