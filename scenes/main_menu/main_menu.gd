@@ -18,7 +18,7 @@ func _on_play_pressed():
 	get_tree().change_scene_to_file("res://scenes/level/level.tscn")
 
 func _on_controls_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://scenes/main_menu/control_scheme/control_scheme.tscn")
 
 func _on_play_mouse_entered():
 	$Title/GPUParticles2D.emitting = true
