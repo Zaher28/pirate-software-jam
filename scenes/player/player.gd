@@ -31,6 +31,8 @@ var pickup: Pickups
 var pickup_time = 10
 var turning_direction = 1
 var course_correcting = false
+var recovery_direction = 0
+var recovery_camera = 1
 var do_friction = true
 
 func _ready():
@@ -110,18 +112,18 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.lerp(Vector3.ZERO, friction * delta)
 	
 	if Input.is_action_just_released("brake_drift"):
+		if abs($CameraPivot.rotation_degrees.y - $Pivot.rotation_degrees.y) < abs($Pivot.rotation_degrees.y - $CameraPivot.rotation_degrees.y):
+			recovery_direction = sign($CameraPivot.rotation_degrees.y - $Pivot.rotation_degrees.y)
+		else:
+			recovery_direction = sign($Pivot.rotation_degrees.y - $CameraPivot.rotation_degrees.y)
+		recovery_camera = sign($CameraPivot/Camera3D.position.x)
 		course_correcting = true
 	
 	# pivot back to the correct direction after drifting
 	if course_correcting:
-		var direction = 0
-		if abs($CameraPivot.rotation_degrees.y - $Pivot.rotation_degrees.y) < abs($Pivot.rotation_degrees.y - $CameraPivot.rotation_degrees.y):
-			direction = sign($CameraPivot.rotation_degrees.y - $Pivot.rotation_degrees.y)
-		else:
-			direction = sign($Pivot.rotation_degrees.y - $CameraPivot.rotation_degrees.y)
 		if abs($CameraPivot.rotation_degrees.y - $Pivot.rotation_degrees.y) > 0.5:
-			$CameraPivot.rotation_degrees.y += direction * abs($CameraPivot.rotation_degrees.y - $Pivot.rotation_degrees.y) * delta
-			$Pivot.rotation_degrees.x -= direction * abs($Pivot.rotation_degrees.x) * delta * sign($CameraPivot/Camera3D.position.x)
+			$CameraPivot.rotation_degrees.y += recovery_direction * abs($CameraPivot.rotation_degrees.y - $Pivot.rotation_degrees.y) * delta
+			$Pivot.rotation_degrees.x -= recovery_direction * abs($Pivot.rotation_degrees.x) * delta * recovery_camera
 		else:
 			$CameraPivot.rotation_degrees.y = $Pivot.rotation_degrees.y
 			$Pivot.rotation_degrees.x = 0
