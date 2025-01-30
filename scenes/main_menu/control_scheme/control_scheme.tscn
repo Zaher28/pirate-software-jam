@@ -72,11 +72,11 @@ label_settings = SubResource("LabelSettings_owyac")
 
 [node name="InvertCamera" type="Label" parent="."]
 layout_mode = 0
-offset_left = 464.0
+offset_left = 437.0
 offset_top = 232.0
-offset_right = 710.0
-offset_bottom = 260.0
-text = "Invert Camera"
+offset_right = 683.0
+offset_bottom = 266.0
+text = "Change Direction"
 label_settings = SubResource("LabelSettings_ksrp8")
 
 [node name="Z" type="Label" parent="."]

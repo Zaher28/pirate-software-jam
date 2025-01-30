@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cg23asqrdivr5"]
+[gd_scene load_steps=16 format=3 uid="uid://cg23asqrdivr5"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_ydqep"]
 [ext_resource type="PackedScene" uid="uid://kbhy7uhmpad1" path="res://scenes/stopwatch/stopwatch.tscn" id="2_tb8yx"]
@@ -39,14 +39,6 @@ size = Vector2(1000, 1000)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kfmq2"]
 albedo_color = Color(0.662452, 0.662452, 0.662452, 1)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_mugcr"]
-
-[sub_resource type="MultiMesh" id="MultiMesh_lfws2"]
-transform_format = 1
-instance_count = 1
-mesh = SubResource("CylinderMesh_mugcr")
-buffer = PackedFloat32Array(0.29, 1, 1, 1, 0, 104, 0.21, 0.24, 0.29, 1, 0, 1)
-
 [node name="Level" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.589, 0)
 script = ExtResource("1_ydqep")
@@ -69,10 +61,6 @@ shape = SubResource("WorldBoundaryShape3D_4sssq")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("QuadMesh_lw4ni")
 material = SubResource("StandardMaterial3D_kfmq2")
-
-[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="Floor"]
-transform = Transform3D(384.408, 0, 0, 0, 384.408, 0, 0, 0, 1, 5.91372, 0.949685, -4.79559)
-multimesh = SubResource("MultiMesh_lfws2")
 
 [node name="Player" parent="." instance=ExtResource("2_v56n4")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.06631, 0.90912, 0)

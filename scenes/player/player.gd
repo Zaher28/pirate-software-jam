@@ -48,7 +48,6 @@ func _physics_process(delta: float) -> void:
 	var dir_to_cam = global_position.direction_to($CameraPivot/Camera3D.global_position)
 	# we only want the direction on the xz plane
 	dir_to_cam.y = 0
-	print(dir_to_cam)
 	
 	# move forward -> accelerate away from camera
 	if Input.is_action_pressed("move_forward") and not Input.is_action_pressed("brake_drift"):

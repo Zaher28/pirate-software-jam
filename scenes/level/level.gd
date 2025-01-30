@@ -63,8 +63,8 @@ func prepare_spawners() -> void:
 ## Function to spawn a single spawner
 func spawn_spawner(position: Vector3) -> void:
 	var spawner = spawner_scene.instantiate()
-	spawner.global_transform.origin = position
 	add_child(spawner)
+	spawner.global_transform.origin = position
 	
 ## Function to calculate the difficulty curve
 func difficulty_curve(t: float) -> float:
