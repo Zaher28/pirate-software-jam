@@ -5,15 +5,18 @@ class_name Enemy
 @export var health: int
 @export var speed: float
 @export var damage: int # Damage dealt to the tower
+@export var knockback_time: float # How long the enemy gets knocked back
 @export var ignore_player: bool # Enemy will not avoid player
 
 enum STATE {
 	NEUTRAL, # Move towards center, not in danger
-	FLEEING # Sees player character, steer away from it
+	FLEEING, # Sees player character, steer away from it
+	KNOCKBACK, # Just got hit (and didn't die)
 }
 
 var flee_range = 20 # Higher values cause enemy flee steering force to increase, and vice versa
 var flee_from_target: Node3D = null
+var knockback_timer = 0.0
 var curr_state = STATE.NEUTRAL
 var controller
 
@@ -64,6 +67,11 @@ func _physics_process(delta: float) -> void:
 			var seek_target_steer = (seek_target_velocity - velocity)
 			seek_target_steer.y = 0
 			velocity = (velocity + seek_target_steer).normalized() * speed
+	elif curr_state == STATE.KNOCKBACK:
+		knockback_timer += delta
+		if knockback_timer >= knockback_time:
+			knockback_timer = 0.0
+			curr_state = STATE.NEUTRAL
 	look_at(velocity) # Have enemy face towards their velocity (which would be towards the tower)
 	move_and_slide()
 
@@ -76,6 +84,7 @@ func is_in_on_sight(body: Node3D) -> void:
 
 func hurt(damage):
 	health -= damage
+	curr_state = STATE.KNOCKBACK
 	if health <= 0:
 		queue_free()
 

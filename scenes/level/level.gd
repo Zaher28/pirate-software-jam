@@ -12,7 +12,7 @@ extends Node3D
 # Internal variables
 var spawner_queue: Array = [] # Queue to store all spawner positions
 var elapsed_time: float = 0.0 # Tracks time passed
-var next_spawn_time: float = 0.0 # When the next spawner should spawn
+var next_spawn_time: float = 3.0 # When the next spawner should spawn
 
 ## Ready function to prepare spawners at the start
 func _ready() -> void:

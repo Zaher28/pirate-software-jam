@@ -18,6 +18,8 @@ extends CharacterBody3D
 @export var base_hitbox_width = 1.25
 # How much to scale the hitbox with speed, to ensure damage check occurs before collision.
 @export var hitbox_scale_value = 0.1
+# How much to knock back the player and enemy when they collide and the enemy doesn't die (percentage of speed).
+@export var knockback_factor = 1.2
 
 var has_pickup = false
 var using_pickup = false
@@ -132,7 +134,8 @@ func use_pickup():
 func _on_hitbox_body_entered(body):
 	if velocity.length() > danger_speed and body.is_in_group("enemy"):
 		if body.health > damage_mult * velocity.length():
-			pass # handle what happens if the enemy doesn't die from the hit
+			body.velocity = velocity * knockback_factor
+			velocity *= -1 * knockback_factor
 		body.hurt(damage_mult * velocity.length())
 		print(damage_mult * velocity.length())
 
