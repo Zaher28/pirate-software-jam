@@ -119,11 +119,11 @@ horizontal_alignment = 1
 
 [node name="Space" type="Label" parent="."]
 layout_mode = 0
-offset_left = 536.0
-offset_top = 480.0
-offset_right = 624.0
-offset_bottom = 504.0
-text = "Space"
+offset_left = 429.0
+offset_top = 482.0
+offset_right = 632.0
+offset_bottom = 510.0
+text = "Space - while turning"
 label_settings = SubResource("LabelSettings_8w184")
 
 [node name="Back" type="Button" parent="."]

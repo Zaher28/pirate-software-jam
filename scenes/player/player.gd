@@ -14,6 +14,8 @@ extends CharacterBody3D
 @export var max_drift_radius = 90
 # How fast the turning radius increases while drifting in degrees per second.
 @export var drift_efficiency = 2
+# How much the drift boosts you when you finish (multiplier).
+@export var drift_boost = 1.3
 # The minimum speed the wheel must be moving to deal damage.
 @export var danger_speed = 7
 # The amount of damage done per m/s of speed.
@@ -121,6 +123,9 @@ func _physics_process(delta: float) -> void:
 			recovery_direction = sign($Pivot.rotation_degrees.y - $CameraPivot.rotation_degrees.y)
 		recovery_camera = sign($CameraPivot/Camera3D.position.x)
 		course_correcting = true
+		# Apply drift boost if you drifted for long enough
+		if abs($Pivot.rotation_degrees.x) > 5:
+			velocity *= drift_boost
 	
 	# pivot back to the correct direction after drifting
 	if course_correcting:
