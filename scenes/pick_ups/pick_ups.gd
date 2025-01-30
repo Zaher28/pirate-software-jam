@@ -29,7 +29,10 @@ class ShotgunPickUp:
 		gun_cone = gun.instantiate()
 		gun_cone.body_entered.connect(_on_shotgun_cone_entered)
 		gun_cone.body_exited.connect(_on_shotgun_cone_exited)
-		self.player.add_child(gun_cone)
+		# SORRY! but the player won't see this stupid ugly code so it's ok
+		if sign(self.player.get_node("CameraPivot").get_node("Camera3D").position.x) < 0:
+			gun_cone.rotation_degrees.y += 180
+		self.player.get_node("CameraPivot").add_child(gun_cone)
 		
 	func use():
 		print("Shoot!")
