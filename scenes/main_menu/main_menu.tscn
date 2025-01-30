@@ -13,11 +13,8 @@ curve = SubResource("Curve_xnbbc")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qfqrc"]
 particle_flag_disable_z = true
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 1.0
-emission_ring_radius = 256.0
-emission_ring_inner_radius = 10.0
+emission_shape = 3
+emission_box_extents = Vector3(256, 36, 256)
 angle_min = -325.1
 angle_max = 92.9
 direction = Vector3(1, 1, 0)
@@ -58,7 +55,7 @@ text = "Kart Wheel"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Title"]
 z_as_relative = false
-position = Vector2(253, 19)
+position = Vector2(251, 256)
 emitting = false
 amount_ratio = 0.5
 process_material = SubResource("ParticleProcessMaterial_qfqrc")
