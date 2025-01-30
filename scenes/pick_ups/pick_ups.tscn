@@ -1,7 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4pxvttgpxdy5"]
+[gd_scene load_steps=6 format=3 uid="uid://b4pxvttgpxdy5"]
 
 [ext_resource type="Script" path="res://scenes/pick_ups/pick_ups.gd" id="1_ndain"]
-[ext_resource type="PackedScene" uid="uid://qxpg22m4tj8q" path="res://scenes/pick_ups/GunCone.tscn" id="2_taydd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_74re2"]
+size = Vector3(4, 7.5, 10)
+
+[sub_resource type="PackedScene" id="PackedScene_qbvlx"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("GunCone", "Area3D", "shotgun_cone", "collision_mask", "CollisionShape3D", "CollisionShape3D", "transform", "shape"),
+"node_count": 2,
+"node_paths": [NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 1, 3, 0, 1, 2, 1073741824, 0, 5, 4, -1, 2, 6, 1, 7, 2, 0),
+"variants": [8, Transform3D(0.0128976, 0.999917, 0, -0.999917, 0.0128976, 0, 0, 0, 1, -3.70415, 0.0090385, -0.201111), SubResource("BoxShape3D_74re2")],
+"version": 3
+}
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kl6b5"]
 blend_mode = 1
@@ -14,7 +29,7 @@ albedo_texture_msdf = true
 [node name="PickUps" type="Node3D" groups=["pickup"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.862102, 0)
 script = ExtResource("1_ndain")
-gun = ExtResource("2_taydd")
+gun = SubResource("PackedScene_qbvlx")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.37909, 0)
