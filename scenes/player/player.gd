@@ -34,6 +34,7 @@ var course_correcting = false
 var recovery_direction = 0
 var recovery_camera = 1
 var do_friction = true
+var can_flip_camera = true
 
 func _ready():
 	$PickupTimer.timeout.connect(_on_pickup_finished)
@@ -41,6 +42,7 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	
 	do_friction = true
+	can_flip_camera = true
 	
 	# find the direction to the camera
 	var dir_to_cam = global_position.direction_to($CameraPivot/Camera3D.global_position)
@@ -78,6 +80,7 @@ func _physics_process(delta: float) -> void:
 		turning_direction = -1
 		if Input.is_action_pressed("brake_drift"):
 			do_friction = false
+			can_flip_camera = false
 			velocity = velocity.rotated(Vector3(0, 1, 0), deg_to_rad(real_turning_speed * delta))
 			$Pivot.rotation_degrees.y += real_turning_speed * 0.5 * delta
 			$CameraPivot.rotation_degrees.y += real_turning_speed * 0.15 * delta
@@ -91,6 +94,7 @@ func _physics_process(delta: float) -> void:
 		turning_direction = 1
 		if Input.is_action_pressed("brake_drift"):
 			do_friction = false
+			can_flip_camera = false
 			velocity = velocity.rotated(Vector3(0, 1, 0), deg_to_rad(-1 * real_turning_speed * delta))
 			$Pivot.rotation_degrees.y -= real_turning_speed * 0.5 * delta
 			$CameraPivot.rotation_degrees.y -= real_turning_speed * 0.15 * delta
@@ -150,7 +154,7 @@ func _physics_process(delta: float) -> void:
 	$Hitbox/CollisionShape3D.shape.size.x = (base_hitbox_width + (hitbox_scale_value * velocity.length())) / scale.x
 	
 	# button to switch side of camera
-	if Input.is_action_just_pressed("switch_camera"):
+	if Input.is_action_just_pressed("switch_camera") and can_flip_camera:
 		$CameraPivot/Camera3D.position.x *= -1
 		$Hitbox/CollisionShape3D.position.x *= -1
 		$CameraPivot/Camera3D.rotation_degrees.y *= -1
