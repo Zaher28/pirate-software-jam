@@ -44,7 +44,13 @@ func spawn_pickup():
 	
 	var power = pickup.instantiate()
 	
-	var random_spawn = Vector2(randf_range(5.0, 50.0), randf_range(5.0, 50.0))
+	var random_spawn = Vector2(randf_range(-50.0, 50.0), randf_range(-50.0, 50.0))
+	
+	#dont spawn pickups inside the tower
+	if abs(random_spawn.x) < 5.0:
+		random_spawn.x = sign(random_spawn.x) * 5.0
+	if abs(random_spawn.y) < 5.0:
+		random_spawn.y = sign(random_spawn.y) * 5.0
 	
 	get_tree().current_scene.add_child(power)
 	print(power.gun)

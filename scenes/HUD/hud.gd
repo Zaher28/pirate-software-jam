@@ -16,7 +16,7 @@ var mini_pickup_tex = load("res://assets/minimap/pickup.png")
 func _ready():
 	stopwatch = get_tree().get_first_node_in_group("stopwatch")
 	player = get_tree().get_first_node_in_group("player")
-	highscore_label.text = stopwatch.time_to_string(get_parent().load_highscore())
+	highscore_label.text = "HS: %s" % stopwatch.time_to_string(get_parent().load_highscore())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -30,7 +30,7 @@ func update_stopwatch():
 
 # Display the player's speed
 func update_speed():
-	speed_label.text = "%.2f m/s" % player.velocity.length()
+	speed_label.text = "%.2f mps" % player.velocity.length()
 
 # Draw the minimap
 func update_minimap():
