@@ -1,6 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfvlg2rmeklm7"]
+[gd_scene load_steps=11 format=3 uid="uid://dfvlg2rmeklm7"]
 
 [ext_resource type="Script" path="res://scenes/enemy/enemy.gd" id="1_nxcm5"]
+[ext_resource type="PackedScene" uid="uid://crms4ocqep165" path="res://scenes/enemy/monkey_head.tscn" id="2_q4e47"]
+
+[sub_resource type="Curve" id="Curve_dotf8"]
+_data = [Vector2(0, 0), 0.0, 2.47131, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_yh6q4"]
+curve = SubResource("Curve_dotf8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_odaia"]
+lifetime_randomness = 0.5
+emission_shape_offset = Vector3(0, 0.5, 0.5)
+direction = Vector3(0, 0, 1)
+spread = 30.0
+flatness = 0.5
+initial_velocity_max = 2.0
+gravity = Vector3(0, -3, 0)
+linear_accel_min = -0.600002
+linear_accel_max = -0.500002
+scale_min = 0.5
+alpha_curve = SubResource("CurveTexture_yh6q4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0cgqy"]
+transparency = 1
+albedo_color = Color(0.682353, 0.00392157, 0.894118, 0.533333)
+albedo_texture_force_srgb = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_ak3oj"]
+material = SubResource("StandardMaterial3D_0cgqy")
+size = Vector3(0.25, 0.25, 0.25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0fpqw"]
 size = Vector3(1, 0.502441, 1.98804)
@@ -9,7 +39,7 @@ size = Vector3(1, 0.502441, 1.98804)
 size = Vector3(0.49707, 0.50354, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_meamq"]
-size = Vector3(0.5, 0.5, 0.5)
+size = Vector3(1.71544, 2.78107, 1.2385)
 
 [node name="Enemy" type="CharacterBody3D" groups=["enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
@@ -17,8 +47,16 @@ collision_layer = 9
 collision_mask = 6
 script = ExtResource("1_nxcm5")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-size = Vector3(0.5, 0.5, 0.5)
+[node name="monkey_head" parent="." instance=ExtResource("2_q4e47")]
+transform = Transform3D(-1, 0.000522116, -0.000811219, 0.000521364, 0.999999, 0.000935759, 0.000811702, 0.00093534, -0.999999, 0, 1.12064, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="monkey_head"]
+transform = Transform3D(-0.999999, 0.000521357, 0.000811707, 0.000522123, 1, 0.000935336, -0.000811214, 0.000935764, -1, -0.000212542, 0.0568883, 0.298619)
+amount = 100
+lifetime = 2.0
+preprocess = 1.0
+process_material = SubResource("ParticleProcessMaterial_odaia")
+draw_pass_1 = SubResource("BoxMesh_ak3oj")
 
 [node name="Cone of Vision" type="Area3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
@@ -32,6 +70,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.256379, 0.000793457, 0)
 shape = SubResource("BoxShape3D_d4u3m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0131758, 1.14053, 0.0662081)
 shape = SubResource("BoxShape3D_meamq")
 
 [node name="Timer" type="Timer" parent="."]

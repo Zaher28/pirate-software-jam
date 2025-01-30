@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://crms4ocqep165"]
+
+[ext_resource type="PackedScene" uid="uid://6tfs5pdxtin6" path="res://assets/monkey_head.glb" id="1_574jk"]
+[ext_resource type="Shader" path="res://assets/monkey_head.gdshader" id="2_arbbp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_legxi"]
+render_priority = 0
+shader = ExtResource("2_arbbp")
+
+[node name="monkey_head" instance=ExtResource("1_574jk")]
+
+[node name="Suzanne" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_legxi")

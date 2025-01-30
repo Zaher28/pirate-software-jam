@@ -67,10 +67,10 @@ func _physics_process(delta: float) -> void:
 	
 	# show the wheel rotating in the direction of the velocity
 	if velocity != Vector3.ZERO:
-		if velocity.normalized().x == dir_to_cam.x and velocity.normalized().z == dir_to_cam.z:
-			$Pivot.rotation_degrees.z += velocity.length()
-		elif velocity.x != 0 or velocity.z != 0:
+		if sign(velocity.normalized().x) == sign(dir_to_cam.normalized().x) and sign(velocity.normalized().z) == sign(dir_to_cam.normalized().z):
 			$Pivot.rotation_degrees.z -= velocity.length()
+		elif velocity.x != 0 or velocity.z != 0:
+			$Pivot.rotation_degrees.z += velocity.length()
 	
 	# manipulate the hitbox based on magnitude/direction of velocity
 	if dir_to_cam.angle_to(velocity.normalized()) > 3: # if moving away, angle will be close to pi radians, otherwise close to 0
