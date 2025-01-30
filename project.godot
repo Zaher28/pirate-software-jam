@@ -15,9 +15,14 @@ run/main_scene="res://scenes/level/level.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="ignore"
+
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
 
 [global_group]
 
@@ -29,6 +34,10 @@ enemy=""
 pickup=""
 shotgun_cone=""
 game_controller=""
+
+[gui]
+
+theme/custom_font="res://assets/fonts/ka1.ttf"
 
 [input]
 

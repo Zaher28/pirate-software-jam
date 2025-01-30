@@ -3,7 +3,7 @@ extends Node
 @export var pickup: PackedScene
 var time_alive: float = 0.0
 var we_lost = false
-var time_to_spawn_pickup = 5
+var time_to_spawn_pickup = 30
 #check for pickup spawn
 var pickup_check = 0
 
