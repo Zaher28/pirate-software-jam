@@ -28,10 +28,6 @@ enabled=PackedStringArray()
 
 import/blender/enabled=false
 
-[filesystem]
-
-import/blender/enabled=false
-
 [global_group]
 
 tower=""
@@ -43,11 +39,8 @@ pickup=""
 shotgun_cone=""
 game_controller=""
 wall=""
-<<<<<<< Updated upstream
-lose_screen=""
-=======
 spawner=""
->>>>>>> Stashed changes
+lose_screen=""
 
 [gui]
 
