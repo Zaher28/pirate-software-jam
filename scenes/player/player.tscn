@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1jy6xb05tyin"]
+[gd_scene load_steps=14 format=3 uid="uid://d1jy6xb05tyin"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_wwcmp"]
 [ext_resource type="Script" path="res://scenes/player/update_manager.gd" id="2_6afvx"]
@@ -11,6 +11,41 @@ size = Vector3(1.25, 2.25, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mjm2m"]
 albedo_color = Color(0.603922, 1, 1, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bkf08"]
+lifetime_randomness = 0.1
+emission_shape_offset = Vector3(0, -1, 0)
+emission_shape_scale = Vector3(0.1, 0.1, 0.1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+inherit_velocity_ratio = 1.0
+direction = Vector3(10, 3, 0)
+spread = 84.036
+flatness = 0.738
+initial_velocity_max = 4.0
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+turbulence_noise_strength = 3.3
+turbulence_noise_scale = 5.38
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vosd8"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.435294)
+
+[sub_resource type="SphereMesh" id="SphereMesh_xnsre"]
+material = SubResource("StandardMaterial3D_vosd8")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lqnqt"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.435294)
+
+[sub_resource type="SphereMesh" id="SphereMesh_0ac7g"]
+material = SubResource("StandardMaterial3D_lqnqt")
+radius = 0.2
+height = 0.4
 
 [sub_resource type="Animation" id="Animation_2okkx"]
 resource_name = "Grow"
@@ -72,9 +107,27 @@ material = SubResource("StandardMaterial3D_mjm2m")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 
+[node name="DriftParticles" type="GPUParticles3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+emitting = false
+lifetime = 0.9
+explosiveness = 0.11
+randomness = 0.2
+process_material = SubResource("ParticleProcessMaterial_bkf08")
+draw_pass_1 = SubResource("SphereMesh_xnsre")
+
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(-4.37114e-08, -0.258819, 0.965926, 0, 0.965926, 0.258819, -1, 1.13133e-08, -4.2222e-08, 4, 2.51352, 0)
 current = true
+
+[node name="BoostParticles" type="GPUParticles3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+emitting = false
+lifetime = 0.9
+explosiveness = 0.11
+randomness = 0.2
+process_material = SubResource("ParticleProcessMaterial_bkf08")
+draw_pass_1 = SubResource("SphereMesh_0ac7g")
 
 [node name="PickupTimer" type="Timer" parent="."]
 wait_time = 10.0

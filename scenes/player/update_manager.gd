@@ -31,6 +31,7 @@ func _on_enemy_killed():
 			hud.display_upgrade("Better Steering!")
 		update4:
 			player.drift_boost = 1.45
+			player.drift_efficiency = 9
 			hud.display_upgrade("Better Drifts!")
 		update5:
 			player.damage_mult = 1.5

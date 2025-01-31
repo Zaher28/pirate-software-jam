@@ -6,7 +6,7 @@ extends Node3D
 @export var spawners_per_ring: Array[int] = [4, 8, 12] # Number of spawners per ring (inner to outer)
 @export var ring_thickness: float = 12.0 # Thickness of the ring zones
 @export var spawn_duration: float = 120.0 # Total duration to add all spawners
-@export var initial_delay: float = 7.0 # Starting delay between spawns
+@export var initial_delay: float = 4.0 # Starting delay between spawns
 @export var exponential_decay_rate: float = 0.01 # Controls delay reduction over time
 
 # Internal variables
@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 	var curve_value = difficulty_curve(normalized_time)
 
 	# Calculate spawn delay using exponential decay
-	var current_delay = 7 + initial_delay * exp(-exponential_decay_rate * elapsed_time)
+	var current_delay = 4 + initial_delay * exp(-exponential_decay_rate * elapsed_time)
 
 	# Check if it's time to spawn the next spawner
 	if elapsed_time >= next_spawn_time:
