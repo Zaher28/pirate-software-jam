@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://6tfs5pdxtin6"
+uid="uid://b8dhrbpwghkg6"
 path="res://.godot/imported/monkey_head.glb-8b0ce74a87717c044b124afcb2f33fe6.scn"
 
 [deps]
@@ -31,6 +31,24 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"Material.001": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/Material.001.tres"
+}
+},
+"meshes": {
+"monkey_head_Suzanne": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://assets/monkey_head_suzanne.res"
+}
+}
+}
 gltf/naming_version=1
 gltf/embedded_image_handling=1
