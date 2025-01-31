@@ -46,3 +46,6 @@ collision_mask = 4
 shape = SubResource("BoxShape3D_hg7ji")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Hitbox"]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_energy = 1.5

@@ -59,6 +59,10 @@ preprocess = 1.0
 process_material = SubResource("ParticleProcessMaterial_odaia")
 draw_pass_1 = SubResource("BoxMesh_ak3oj")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="monkey_head"]
+transform = Transform3D(-0.999999, 0.000521357, 0.000811707, 0.000522123, 1, 0.000935336, -0.000811214, 0.000935764, -1, 1.96215e-05, -0.594254, -0.406661)
+omni_attenuation = 2.0
+
 [node name="Cone of Vision" type="Area3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 

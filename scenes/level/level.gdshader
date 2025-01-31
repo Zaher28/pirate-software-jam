@@ -1,20 +1,20 @@
 shader_type spatial;
-render_mode cull_disabled;
+//render_mode cull_disabled;
 
-uniform float sway = 1.14;
-uniform float sway_ = 0.34;
-uniform float sway_pow = 1.3;
-uniform float grass_roughness = 0.3;
-uniform float sway_noise_sampeling_scale = 0.12;
-uniform float sway_time_scale = 0.2;
-uniform vec3 sway_dir = vec3(1.0,0.0,1.0);
-uniform sampler2D sway_noise; //noise with with and height 1000
-uniform float color_scale = 0.3;
-uniform float color_grad_height = -0.5;
+uniform float sway = 0.5;
+uniform float sway_ = 2.0;
+uniform float sway_pow = 2;
+uniform float grass_roughness;
+uniform float sway_noise_sampeling_scale;
+uniform float sway_time_scale;
+uniform vec3 sway_dir = vec3(0.0,0.0,1.0);
+uniform sampler2D sway_noise;
+uniform float color_scale;
+uniform float color_grad_height;
 uniform vec4 top_color : source_color;
 uniform vec4 bot_color : source_color;
-uniform vec3 grass_scale = vec3(1.0,1.0,1.0);
-
+uniform vec3 grass_scale;
+varying float fasdf;
 varying vec3 vert;
 varying float curent_wind;
 
@@ -37,7 +37,7 @@ void vertex()
 	NORMAL = vec3(0.0,1.0,0.0);
 	vec4 sway_dir_local = vec4(sway_dir,0.0) * MODEL_MATRIX;
 	vec3 world_vertex = (MODEL_MATRIX * vec4(VERTEX,1.0)).xyz;
-	//curent_wind = texture(sway_noise,normalize(sway_dir.xz) * (-TIME*sway_time_scale) + world_vertex.xz*vec2(sway_noise_sampeling_scale)).x;
-	VERTEX += normalize(sway_dir_local.xyz) * sway * (VERTEX.y);
-	//VERTEX.y -= sway_*abs(pow(VERTEX.x,sway_pow));
+	curent_wind = texture(sway_noise,sway_dir.xz * (-TIME*sway_time_scale) + world_vertex.xz*vec2(sway_noise_sampeling_scale)).x;
+	VERTEX += normalize(sway_dir_local.xyz) * sway * (VERTEX.y) *  sclamp(curent_wind,1.5);
+	VERTEX.y -= sway_ * abs(pow(VERTEX.x,sway_pow));
 }
