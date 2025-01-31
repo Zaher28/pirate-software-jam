@@ -48,6 +48,9 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	
+	$CameraPivot/DriftParticles.emitting = false
+	$CameraPivot/BoostParticles.emitting = false
+	
 	do_friction = true
 	can_flip_camera = true
 	
@@ -85,6 +88,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("turn_left"):
 		turning_direction = -1
 		if Input.is_action_pressed("brake_drift"):
+			$CameraPivot/DriftParticles.emitting = true
 			do_friction = false
 			can_flip_camera = false
 			velocity = velocity.rotated(Vector3(0, 1, 0), deg_to_rad(real_turning_speed * delta))
@@ -92,6 +96,8 @@ func _physics_process(delta: float) -> void:
 			$CameraPivot.rotation_degrees.y += real_turning_speed * 0.15 * delta
 			if abs($Pivot.rotation_degrees.x) < 20:
 				$Pivot.rotation_degrees.x += real_turning_speed * 0.1 * delta * sign($CameraPivot/Camera3D.position.x)
+			if abs($Pivot.rotation_degrees.x) >= 3:
+				$CameraPivot/BoostParticles.emitting = true
 		else:
 			rotation_degrees.y += real_turning_speed * delta
 			velocity = velocity.rotated(Vector3(0, 1, 0), deg_to_rad(real_turning_speed * delta))
@@ -99,6 +105,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("turn_right"):
 		turning_direction = 1
 		if Input.is_action_pressed("brake_drift"):
+			$CameraPivot/DriftParticles.emitting = true
 			do_friction = false
 			can_flip_camera = false
 			velocity = velocity.rotated(Vector3(0, 1, 0), deg_to_rad(-1 * real_turning_speed * delta))
@@ -106,6 +113,8 @@ func _physics_process(delta: float) -> void:
 			$CameraPivot.rotation_degrees.y -= real_turning_speed * 0.15 * delta
 			if abs($Pivot.rotation_degrees.x) < 20:
 				$Pivot.rotation_degrees.x -= real_turning_speed * 0.1 * delta * sign($CameraPivot/Camera3D.position.x)
+			if abs($Pivot.rotation_degrees.x) >= 3:
+				$CameraPivot/BoostParticles.emitting = true
 		else:
 			rotation_degrees.y -= real_turning_speed * delta
 			velocity = velocity.rotated(Vector3(0, 1, 0), deg_to_rad(-1 * real_turning_speed * delta))
@@ -216,7 +225,6 @@ func use_pickup():
 
 # Logic for damaging enemies
 func _on_hitbox_body_entered(body):
-	print(body)
 	if velocity.length() > danger_speed and body.is_in_group("enemy"):
 		if not body.is_in_group("spawner") and body.health > damage_mult * velocity.length():
 			body.velocity = velocity * knockback_factor

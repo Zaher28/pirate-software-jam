@@ -90,7 +90,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 [node name="UpdateManager" parent="Player" index="6" node_paths=PackedStringArray("hud")]
 hud = NodePath("../../HUD")
 
-[node name="Tower" parent="." instance=ExtResource("3_uw762")]
+[node name="Tower" parent="." groups=["wall"] instance=ExtResource("3_uw762")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.946, 0)
 script = ExtResource("4_6mg1e")
 

@@ -77,6 +77,9 @@ func draw_mini_element(texture, mini_scale, x, z):
 	minimap.add_child(mini_element)
 	mini_element.position.x += 75 + x
 	mini_element.position.y += 75 + z
+	mini_element.rotation = deg_to_rad(90 - player.rotation_degrees.y - player.get_node("CameraPivot").rotation_degrees.y)
+	if player.get_node("CameraPivot").get_node("Camera3D").position.x < 0:
+		mini_element.rotation += PI
 
 func display_upgrade(text):
 	upgrade_label.text = text
