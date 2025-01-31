@@ -32,7 +32,7 @@ offset_bottom = 23.0
 text = "00:000"
 
 [node name="SpeedLabel" type="Label" parent="."]
-anchors_preset = -1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -150.0
@@ -54,8 +54,15 @@ grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AmmoLabel" type="Label" parent="."]
+offset_left = 1034.0
+offset_top = 514.0
+offset_right = 1074.0
+offset_bottom = 533.0
+text = "10/10"
+
 [node name="Minimap" type="ColorRect" parent="."]
-anchors_preset = -1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -150.0
@@ -66,3 +73,6 @@ color = Color(0, 0, 0, 1)
 position = Vector2(75, 75)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_18ips")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+centered = false

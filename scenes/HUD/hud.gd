@@ -4,6 +4,7 @@ extends CanvasLayer
 @export var highscore_label: Label
 @export var speed_label: Label
 @export var upgrade_label: Label
+@export var ammo_label: Label
 @export var minimap: ColorRect
 
 @export var upgrade_text_display_length: float
@@ -18,8 +19,16 @@ var mini_player_tex = load("res://assets/minimap/player.png")
 var mini_enemy_tex = load("res://assets/minimap/enemy.png")
 var mini_pickup_tex = load("res://assets/minimap/pickup.png")
 
+var spinach_icon = load("res://assets/Spinach.png")
+var extra_large_icon = load("res://assets/Extra Large.png")
+var shotgun_icon = load("res://assets/Shotgun.png")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Sprite2D.position.x = 1031
+	$Sprite2D.position.y = 527
+	$Sprite2D.scale.x = 0.5
+	$Sprite2D.scale.y = 0.5
 	stopwatch = get_tree().get_first_node_in_group("stopwatch")
 	player = get_tree().get_first_node_in_group("player")
 	highscore_label.text = "HS: %s" % stopwatch.time_to_string(get_parent().load_highscore())
@@ -29,6 +38,7 @@ func _process(delta):
 	update_stopwatch()
 	update_speed()
 	update_minimap()
+	update_pickup()
 	
 	if displaying_upgrade:
 		upgrade_text_timer += delta
@@ -71,3 +81,16 @@ func draw_mini_element(texture, mini_scale, x, z):
 func display_upgrade(text):
 	upgrade_label.text = text
 	displaying_upgrade = true
+	
+func update_pickup():
+	ammo_label.text = ""
+	if is_instance_valid(player.pickup):
+		if is_instance_of(player.pickup, Pickups.ShotgunPickUp):
+			$Sprite2D.texture = shotgun_icon
+			ammo_label.text = "Uses - %d" % player.pickup.uses
+		elif is_instance_of(player.pickup, Pickups.GrowPickUp):
+			$Sprite2D.texture = extra_large_icon
+		elif is_instance_of(player.pickup, Pickups.InstakillPickUp):
+			$Sprite2D.texture = spinach_icon
+	else:
+		$Sprite2D.texture = null

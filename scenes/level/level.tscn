@@ -54,7 +54,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.589, 0)
 script = ExtResource("1_ydqep")
 spawner_scene = ExtResource("6_wj5dm")
 
-[node name="HUD" parent="." instance=ExtResource("2_vb782")]
+[node name="HUD" parent="." node_paths=PackedStringArray("ammo_label") instance=ExtResource("2_vb782")]
+ammo_label = NodePath("AmmoLabel")
+
+[node name="AmmoLabel" parent="HUD" index="4"]
+offset_left = 1038.0
+offset_top = 504.0
+offset_right = 1138.0
+offset_bottom = 523.0
+text = "Uses - 10"
 
 [node name="GameController" parent="." instance=ExtResource("4_4e6m2")]
 
@@ -297,5 +305,6 @@ omni_range = 284.148
 
 [connection signal="death" from="Tower" to="Stopwatch" method="_on_tower_death"]
 
+[editable path="HUD"]
 [editable path="Player"]
 [editable path="Tower"]
