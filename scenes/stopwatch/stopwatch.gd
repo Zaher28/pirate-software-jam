@@ -32,13 +32,7 @@ func time_to_string(time: float) -> String:
 func _on_tower_death():
 	#we lost
 	we_lost = true
-	#save highscore if its actually a highscore
-	if get_parent().load_highscore() < time_alive:
-		get_parent().save_highscore(time_alive)
-		print("New Highscore: %.3f seconds" % [time_alive])
-	else:
-		print("Current Run: %.3f seconds" % [time_alive])
-		print("Previous Highscore: %.3f seconds" % [get_parent().load_highscore()])
+	get_tree().get_first_node_in_group("lose_screen").lose(time_alive)
 
 func spawn_pickup():
 	

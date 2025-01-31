@@ -69,7 +69,7 @@ func _on_spawn_timer_timeout():
 func spawn_enemy(scene: PackedScene):
 	# Instance the enemy
 	var enemy_instance = scene.instantiate()
-
+	enemy_instance.speed = 50
 	# Spawn the enemy at a random offset
 	var random_offset = Vector3(
 		randf_range(-spawn_radius, spawn_radius),

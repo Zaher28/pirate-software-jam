@@ -21,7 +21,7 @@ func enemy_credit_int() -> int:
 	return int((sqrt(0.2 * time)))
 	
 func enemy_stat_scalar_float() -> float:
-	return 2 - exp(-time / 433)
+	return 30#2 - exp(-time / 433)
 	
 func enemy_stat_scalar_fin_int(initial: int) -> int:
 	return int(initial * (2 - exp(-time / 433)))

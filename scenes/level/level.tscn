@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cg23asqrdivr5"]
+[gd_scene load_steps=19 format=3 uid="uid://cg23asqrdivr5"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_ydqep"]
 [ext_resource type="PackedScene" uid="uid://kbhy7uhmpad1" path="res://scenes/stopwatch/stopwatch.tscn" id="2_tb8yx"]
@@ -10,7 +10,8 @@
 [ext_resource type="Shader" path="res://scenes/level/level.gdshader" id="6_m1hm6"]
 [ext_resource type="PackedScene" uid="uid://uf3pparja48s" path="res://scenes/spawner/enemy_spawner.tscn" id="6_wj5dm"]
 [ext_resource type="PackedScene" uid="uid://c4mrp7l3s7gtn" path="res://assets/wheel.glb" id="8_8nk73"]
-[ext_resource type="PackedScene" uid="uid://c2wrbk2qspm6f" path="res://scenes/level/fence.tscn" id="11_c6l2l"]
+[ext_resource type="PackedScene" path="res://scenes/level/fence.tscn" id="11_c6l2l"]
+[ext_resource type="PackedScene" uid="uid://q2ojurgqkfk0" path="res://scenes/menus/lose_screen/lose_screen.tscn" id="11_rqpbp"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yd3db"]
 
@@ -89,6 +90,10 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16.
 [node name="Tower" parent="." instance=ExtResource("3_uw762")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.946, 0)
 script = ExtResource("4_6mg1e")
+max_health = 1
+
+[node name="LoseScreen" parent="." instance=ExtResource("11_rqpbp")]
+visible = false
 
 [node name="Boundaries" type="Node" parent="."]
 
