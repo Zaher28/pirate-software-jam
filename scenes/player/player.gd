@@ -9,7 +9,7 @@ extends CharacterBody3D
 # The base turning speed in degrees per second.
 @export var turning_speed = 80
 # The minimum turning speed in degrees per second.
-@export var min_turning_speed = 6
+@export var min_turning_speed = 20
 # The maximum drifting turn rate in degrees per second.
 @export var max_drift_radius = 90
 # How fast the turning radius increases while drifting in degrees per second.
@@ -37,6 +37,8 @@ var recovery_direction = 0
 var recovery_camera = 1
 var do_friction = true
 var can_flip_camera = true
+
+signal enemy_killed
 
 func _ready():
 	$PickupTimer.timeout.connect(_on_pickup_finished)
@@ -211,8 +213,9 @@ func _on_hitbox_body_entered(body):
 		if body.health > damage_mult * velocity.length():
 			body.velocity = velocity * knockback_factor
 			velocity *= -1 * knockback_factor
+		else:
+			enemy_killed.emit()
 		body.hurt(damage_mult * velocity.length())
-		print(damage_mult * velocity.length())
 
 #When pickup time passes or when pickup uses depleted
 func _on_pickup_finished():

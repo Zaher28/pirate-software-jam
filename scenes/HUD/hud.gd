@@ -3,10 +3,16 @@ extends Control
 @export var stopwatch_label: Label
 @export var highscore_label: Label
 @export var speed_label: Label
+@export var upgrade_label: Label
 @export var minimap: ColorRect
+
+@export var upgrade_text_display_length: float
 
 var stopwatch : Node
 var player: Node
+
+var upgrade_text_timer = 0.0
+var displaying_upgrade = false
 
 var mini_player_tex = load("res://assets/minimap/player.png")
 var mini_enemy_tex = load("res://assets/minimap/enemy.png")
@@ -23,6 +29,13 @@ func _process(delta):
 	update_stopwatch()
 	update_speed()
 	update_minimap()
+	
+	if displaying_upgrade:
+		upgrade_text_timer += delta
+		if upgrade_text_timer >= upgrade_text_display_length:
+			upgrade_label.text = ""
+			upgrade_text_timer = 0.0
+			displaying_upgrade = false
 
 # Time to String to Label
 func update_stopwatch():
@@ -54,3 +67,7 @@ func draw_mini_element(texture, mini_scale, x, z):
 	minimap.add_child(mini_element)
 	mini_element.position.x += 75 + x
 	mini_element.position.y += 75 + z
+
+func display_upgrade(text):
+	upgrade_label.text = text
+	displaying_upgrade = true

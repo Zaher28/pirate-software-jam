@@ -37,6 +37,8 @@ class ShotgunPickUp:
 	func use():
 		print("Shoot!")
 		for enemy in enemies_in_area:
+			if enemy.health < shotgun_damage:
+				self.player.enemy_killed.emit()
 			enemy.hurt(shotgun_damage)
 			
 	func _on_shotgun_cone_entered(body: Node3D):
@@ -87,10 +89,14 @@ class GrowPickUp:
 	#When pickup is used
 	func use():
 		player.find_child("Animation").play("Grow")
+		player.danger_speed = 2
+		player.damage_mult *= 2
 
 	#When pickup time passes (I think only for passives?)
 	func revert():
 		player.find_child("Animation").play_backwards("Grow")
+		player.danger_speed = 7
+		player.damage_mult /= 2
 
 func _ready():
 	rng.randomize()
