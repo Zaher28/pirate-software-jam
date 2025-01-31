@@ -2,20 +2,20 @@
 
 [ext_resource type="Script" path="res://scenes/spawner/enemy_spawner.gd" id="1_krkdk"]
 [ext_resource type="PackedScene" uid="uid://dfvlg2rmeklm7" path="res://scenes/enemy/enemy.tscn" id="2_umucm"]
+[ext_resource type="PackedScene" uid="uid://bvlx0x63vnlay" path="res://assets/tombstone.glb" id="3_d354p"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_27al5"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1ilj4"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_oygwt"]
+size = Vector3(0.762451, 3.177, 2.8125)
 
 [node name="EnemySpawner" type="StaticBody3D" groups=["enemy", "spawner"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5928, 5.66492, 10.5041)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 script = ExtResource("1_krkdk")
 enemy_scene = ExtResource("2_umucm")
 health = 7
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.993878, 0, 0.11048, 0, 1, 0, -0.11048, 0, 0.993878, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_27al5")
+[node name="tombstone" parent="." instance=ExtResource("3_d354p")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_1ilj4")
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.00012207, 1.66589, 0.000488281)
+shape = SubResource("BoxShape3D_oygwt")

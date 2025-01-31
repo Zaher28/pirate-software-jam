@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1jy6xb05tyin"]
+[gd_scene load_steps=9 format=3 uid="uid://dixi2runxl4u2"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_wwcmp"]
 [ext_resource type="Script" path="res://scenes/player/update_manager.gd" id="2_6afvx"]

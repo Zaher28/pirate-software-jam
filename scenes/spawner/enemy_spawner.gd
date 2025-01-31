@@ -26,6 +26,7 @@ func _ready():
 	timer.start()
 	tower = get_tree().get_first_node_in_group("tower")
 	controller = get_tree().get_first_node_in_group("game_controller")
+	look_at(self.position.direction_to(tower.position))
 
 func _on_spawn_timer_timeout():
 	var enemy_credit
