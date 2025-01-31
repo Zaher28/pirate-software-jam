@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://hyqqq5t2xmbo" path="res://scenes/game_controller/game_controller.tscn" id="4_4e6m2"]
 [ext_resource type="Script" path="res://scenes/tower/tower.gd" id="4_6mg1e"]
 [ext_resource type="PackedScene" uid="uid://uf3pparja48s" path="res://scenes/spawner/enemy_spawner.tscn" id="6_wj5dm"]
-[ext_resource type="PackedScene" uid="uid://c4mrp7l3s7gtn" path="res://assets/wheel.glb" id="8_8nk73"]
+[ext_resource type="PackedScene" uid="uid://cjmdutp25npyb" path="res://assets/wheel.glb" id="8_8nk73"]
 [ext_resource type="PackedScene" uid="uid://c2wrbk2qspm6f" path="res://scenes/level/fence.tscn" id="11_c6l2l"]
 [ext_resource type="PackedScene" uid="uid://q2ojurgqkfk0" path="res://scenes/menus/lose_screen/lose_screen.tscn" id="11_rqpbp"]
 
