@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dqiyoejoq55oc"]
+
+[ext_resource type="Shader" path="res://scenes/level/level.gdshader" id="1_hakpl"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5pn85"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ypkr4"]
+noise = SubResource("FastNoiseLite_5pn85")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_hakpl")
+shader_parameter/sway = 0.149
+shader_parameter/sway_ = 0.562
+shader_parameter/sway_pow = 1.246
+shader_parameter/grass_roughness = 0.399
+shader_parameter/sway_noise_sampeling_scale = 0.023
+shader_parameter/sway_time_scale = 0.089
+shader_parameter/sway_dir = Vector3(1, 1, 1)
+shader_parameter/color_scale = 0.178
+shader_parameter/color_grad_height = -0.035
+shader_parameter/top_color = Color(0.91, 0, 0, 1)
+shader_parameter/bot_color = Color(0.075, 0.118, 0.208, 1)
+shader_parameter/grass_scale = Vector3(1, 1, 1)
+shader_parameter/sway_noise = SubResource("NoiseTexture2D_ypkr4")

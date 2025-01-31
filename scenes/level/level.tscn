@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cg23asqrdivr5"]
+[gd_scene load_steps=20 format=3 uid="uid://cg23asqrdivr5"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_ydqep"]
 [ext_resource type="PackedScene" uid="uid://kbhy7uhmpad1" path="res://scenes/stopwatch/stopwatch.tscn" id="2_tb8yx"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dcudamu43be3r" path="res://scenes/tower/tower.tscn" id="3_uw762"]
 [ext_resource type="PackedScene" uid="uid://hyqqq5t2xmbo" path="res://scenes/game_controller/game_controller.tscn" id="4_4e6m2"]
 [ext_resource type="Script" path="res://scenes/tower/tower.gd" id="4_6mg1e"]
-[ext_resource type="Shader" path="res://scenes/level/level.gdshader" id="6_m1hm6"]
 [ext_resource type="PackedScene" uid="uid://uf3pparja48s" path="res://scenes/spawner/enemy_spawner.tscn" id="6_wj5dm"]
 [ext_resource type="PackedScene" uid="uid://c4mrp7l3s7gtn" path="res://assets/wheel.glb" id="8_8nk73"]
 [ext_resource type="PackedScene" uid="uid://c2wrbk2qspm6f" path="res://scenes/level/fence.tscn" id="11_c6l2l"]
@@ -17,37 +16,37 @@
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_4sssq"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hlch5"]
-render_priority = 0
-shader = ExtResource("6_m1hm6")
-shader_parameter/sway = 1.14
-shader_parameter/sway_ = 0.34
-shader_parameter/sway_pow = 1.3
-shader_parameter/grass_roughness = 0.3
-shader_parameter/sway_noise_sampeling_scale = 0.12
-shader_parameter/sway_time_scale = 0.2
-shader_parameter/sway_dir = Vector3(1, 0, 1)
-shader_parameter/color_scale = 0.3
-shader_parameter/color_grad_height = -0.5
-shader_parameter/top_color = Color(0, 0, 0, 1)
-shader_parameter/bot_color = null
-shader_parameter/grass_scale = Vector3(100, 100, 100)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i8o3e"]
+albedo_color = Color(0.351677, 0.22703, 0.000585077, 1)
 
-[sub_resource type="QuadMesh" id="QuadMesh_lw4ni"]
-material = SubResource("ShaderMaterial_hlch5")
-flip_faces = true
-size = Vector2(1000, 1000)
+[sub_resource type="PlaneMesh" id="PlaneMesh_18g1r"]
+material = SubResource("StandardMaterial3D_i8o3e")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kfmq2"]
-albedo_color = Color(0.662452, 0.662452, 0.662452, 1)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rod0f"]
 
-[sub_resource type="Environment" id="Environment_tb0h2"]
-background_mode = 3
-background_color = Color(0, 0.0214131, 0.0970828, 1)
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kg4s7"]
+seamless = true
+noise = SubResource("FastNoiseLite_rod0f")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vxlym"]
+sky_top_color = Color(0.0474976, 0.0661805, 0.0921608, 1)
+sky_energy_multiplier = 0.5
+sky_cover = SubResource("NoiseTexture2D_kg4s7")
+
+[sub_resource type="Sky" id="Sky_st47b"]
+sky_material = SubResource("ProceduralSkyMaterial_vxlym")
+
+[sub_resource type="Environment" id="Environment_gyx04"]
+background_mode = 2
+background_energy_multiplier = 0.1
+sky = SubResource("Sky_st47b")
+ambient_light_sky_contribution = 0.1
+ambient_light_energy = 0.2
 glow_enabled = true
-glow_levels/1 = 4.49
-glow_normalized = true
-glow_blend_mode = 1
+fog_enabled = true
+fog_density = 0.005
+fog_sky_affect = 0.5
+volumetric_fog_density = 0.0
 
 [node name="Level" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.589, 0)
@@ -67,10 +66,9 @@ physics_material_override = SubResource("PhysicsMaterial_yd3db")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("WorldBoundaryShape3D_4sssq")
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("QuadMesh_lw4ni")
-material = SubResource("StandardMaterial3D_kfmq2")
+[node name="Ground" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(82.0242, -0.00181041, -0.148457, 0.148885, 0.999995, 0.213012, 0.148069, -0.00260022, 82.0241, 0, 0, 0)
+mesh = SubResource("PlaneMesh_18g1r")
 
 [node name="Player" parent="." instance=ExtResource("2_v56n4")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.06631, 0.90912, 0)
@@ -83,9 +81,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 
 [node name="UpdateManager" parent="Player" index="6" node_paths=PackedStringArray("hud")]
 hud = NodePath("../../HUD")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16.3021, 0)
 
 [node name="Tower" parent="." instance=ExtResource("3_uw762")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.946, 0)
@@ -289,11 +284,15 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -63.16
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -63.168, -0.588998, 5.34967)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_tb0h2")
+environment = SubResource("Environment_gyx04")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14, 0)
-omni_range = 284.148
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.586653, 0.657685, 0.472534, 0.265161, -0.395332, 0.879433, 0.765198, 0.64122, 0.0575301, 142.353, 152.698, 0)
+light_color = Color(0.151276, 0.151276, 0.151276, 1)
+light_indirect_energy = 0.75
+light_volumetric_fog_energy = 3.424
+shadow_enabled = true
+sky_mode = 1
 
 [connection signal="death" from="Tower" to="Stopwatch" method="_on_tower_death"]
 
