@@ -178,6 +178,7 @@ func _physics_process(delta: float) -> void:
 	# button to switch side of camera
 	if Input.is_action_just_pressed("switch_camera") and can_flip_camera:
 		$CameraPivot/Camera3D.position.x *= -1
+		$CameraPivot/OmniLight3D.position.x *= -1
 		$Hitbox/CollisionShape3D.position.x *= -1
 		$CameraPivot/Camera3D.rotation_degrees.y *= -1
 		if get_tree().get_first_node_in_group("shotgun_cone"):

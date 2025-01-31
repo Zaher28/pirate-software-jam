@@ -26,7 +26,9 @@ func _ready():
 	timer.start()
 	tower = get_tree().get_first_node_in_group("tower")
 	controller = get_tree().get_first_node_in_group("game_controller")
-	look_at(self.position.direction_to(tower.position))
+
+func _process(_delta):
+	look_at(Vector3(tower.global_position.x, 0, tower.global_position.z))
 
 func _on_spawn_timer_timeout():
 	var enemy_credit
@@ -65,7 +67,8 @@ func _on_spawn_timer_timeout():
 
 	# Reset the timer with a new random interval
 	timer.wait_time = randf_range(num_time_interval.x, num_time_interval.y)
-	timer.start()
+	if tower.current_health > 0:
+		timer.start()
 
 func spawn_enemy(scene: PackedScene):
 	# Instance the enemy
