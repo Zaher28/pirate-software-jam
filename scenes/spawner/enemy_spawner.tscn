@@ -7,7 +7,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1ilj4"]
 
-[node name="EnemySpawner" type="StaticBody3D" groups=["enemy"]]
+[node name="EnemySpawner" type="StaticBody3D" groups=["enemy", "spawner"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5928, 5.66492, 10.5041)
 script = ExtResource("1_krkdk")
 enemy_scene = ExtResource("2_umucm")

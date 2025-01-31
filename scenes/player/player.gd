@@ -218,7 +218,7 @@ func use_pickup():
 func _on_hitbox_body_entered(body):
 	print(body)
 	if velocity.length() > danger_speed and body.is_in_group("enemy"):
-		if body.health > damage_mult * velocity.length():
+		if not body.is_in_group("spawner") and body.health > damage_mult * velocity.length():
 			body.velocity = velocity * knockback_factor
 			velocity *= -1 * knockback_factor
 		else:

@@ -43,7 +43,11 @@ pickup=""
 shotgun_cone=""
 game_controller=""
 wall=""
+<<<<<<< Updated upstream
 lose_screen=""
+=======
+spawner=""
+>>>>>>> Stashed changes
 
 [gui]
 
