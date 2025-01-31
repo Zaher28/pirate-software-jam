@@ -5,12 +5,13 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_vulj4"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("stopwatch_label", "highscore_label", "speed_label", "upgrade_label", "minimap")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("stopwatch_label", "highscore_label", "speed_label", "upgrade_label", "hp_label", "minimap")]
 script = ExtResource("1_5mblm")
 stopwatch_label = NodePath("StopwatchLabel")
 highscore_label = NodePath("HighscoreLabel")
 speed_label = NodePath("SpeedLabel")
 upgrade_label = NodePath("UpgradeLabel")
+hp_label = NodePath("HPLabel")
 minimap = NodePath("Minimap")
 upgrade_text_display_length = 3.0
 
@@ -60,6 +61,16 @@ offset_top = 514.0
 offset_right = 1074.0
 offset_bottom = 533.0
 text = "10/10"
+
+[node name="HPLabel" type="Label" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 570.0
+offset_top = 24.0
+offset_right = -541.0
+offset_bottom = 43.0
+grow_horizontal = 2
+text = "100"
 
 [node name="Minimap" type="ColorRect" parent="."]
 anchors_preset = 1

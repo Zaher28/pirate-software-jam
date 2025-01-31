@@ -6,6 +6,7 @@ extends Node3D
 @export var spawn_radius: float = 5.0
 @export var greedy_algorithm: bool = false
 @export var health: int
+@export var game_controller: Node
 
 const _BIG_CRED: int = 5
 const _FAST_CRED: int = 3
@@ -28,7 +29,8 @@ func _ready():
 	controller = get_tree().get_first_node_in_group("game_controller")
 
 func _process(_delta):
-	look_at(Vector3(tower.global_position.x, 0, tower.global_position.z))
+	if not controller.game_over:
+		look_at(Vector3(tower.global_position.x, 0, tower.global_position.z))
 
 func _on_spawn_timer_timeout():
 	var enemy_credit
@@ -67,7 +69,7 @@ func _on_spawn_timer_timeout():
 
 	# Reset the timer with a new random interval
 	timer.wait_time = randf_range(num_time_interval.x, num_time_interval.y)
-	if tower.current_health > 0:
+	if not game_controller.game_over:
 		timer.start()
 
 func spawn_enemy(scene: PackedScene):

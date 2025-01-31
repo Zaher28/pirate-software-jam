@@ -39,12 +39,24 @@ var recovery_direction = 0
 var recovery_camera = 1
 var do_friction = true
 var can_flip_camera = true
-var bouncing = false
+
+# SFX
+@onready var rolling_sound = load("res://assets/sounds/sfx/earthquake.wav")
+@onready var drift_sound = load("res://assets/sounds/sfx/wear.wav")
+@onready var death_sound = load("res://assets/sounds/sfx/perish.wav")
+
+# Music
+@onready var music = load("res://assets/sounds/music/music.wav")
 
 signal enemy_killed
 
 func _ready():
 	$PickupTimer.timeout.connect(_on_pickup_finished)
+	$MusicPlayer.set_stream(music)
+
+func _process(_delta):
+	if not $MusicPlayer.is_playing():
+		$MusicPlayer.play()
 
 func _physics_process(delta: float) -> void:
 	
@@ -88,6 +100,9 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("turn_left"):
 		turning_direction = -1
 		if Input.is_action_pressed("brake_drift"):
+			if not $SFXPlayer.is_playing():
+				$SFXPlayer.set_stream(drift_sound)
+				$SFXPlayer.play()
 			$CameraPivot/DriftParticles.emitting = true
 			do_friction = false
 			can_flip_camera = false
@@ -105,6 +120,9 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("turn_right"):
 		turning_direction = 1
 		if Input.is_action_pressed("brake_drift"):
+			if not $SFXPlayer.is_playing():
+				$SFXPlayer.set_stream(drift_sound)
+				$SFXPlayer.play()
 			$CameraPivot/DriftParticles.emitting = true
 			do_friction = false
 			can_flip_camera = false
@@ -130,7 +148,16 @@ func _physics_process(delta: float) -> void:
 		var friction = 0.15
 		velocity = velocity.lerp(Vector3.ZERO, friction * delta)
 	
+	if velocity.length() > 5 and not $SFXPlayer.is_playing() and not Input.is_action_pressed("brake_drift"):
+		$SFXPlayer.set_stream(rolling_sound)
+		$SFXPlayer.play()
+	elif velocity.length() < 5 or Input.is_action_pressed("brake_drift"):
+		if $SFXPlayer.stream == rolling_sound:
+			$SFXPlayer.stop()
+	
 	if Input.is_action_just_released("brake_drift"):
+		if $SFXPlayer.stream == drift_sound:
+			$SFXPlayer.stop()
 		if abs($CameraPivot.rotation_degrees.y - $Pivot.rotation_degrees.y) < abs($Pivot.rotation_degrees.y - $CameraPivot.rotation_degrees.y):
 			recovery_direction = sign($CameraPivot.rotation_degrees.y - $Pivot.rotation_degrees.y)
 		else:
@@ -150,10 +177,6 @@ func _physics_process(delta: float) -> void:
 			$CameraPivot.rotation_degrees.y = $Pivot.rotation_degrees.y
 			$Pivot.rotation_degrees.x = 0
 			course_correcting = false
-	
-	# pivot back to the correct direction after bouncing
-	if bouncing:
-		pass
 	
 	# show the wheel rotating in the direction of the velocity
 	if velocity != Vector3.ZERO and not Input.is_action_pressed("brake_drift"):
@@ -231,11 +254,12 @@ func _on_hitbox_body_entered(body):
 			body.velocity = velocity * knockback_factor
 			velocity *= -1 * knockback_factor
 		else:
+			$SFXPlayer.set_stream(death_sound)
+			$SFXPlayer.play()
 			enemy_killed.emit()
 		body.hurt(damage_mult * velocity.length())
 	elif body.is_in_group("wall"):
 		velocity *= -1 * wall_bounce_factor
-		bouncing = true
 
 #When pickup time passes or when pickup uses depleted
 func _on_pickup_finished():

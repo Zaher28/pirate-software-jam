@@ -2,6 +2,8 @@ extends Node
 
 var time: float = 0.0
 
+var game_over = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -52,3 +54,7 @@ func enemy_spawntime_int() -> int:
 	#if time <= 150:
 		#return int((1 + (time - 90) * (.25 / 60)) * initial)
 	#return int((1.25 + (time - 150) * (.75 / 60)) * initial)
+
+
+func _on_tower_death():
+	game_over = true

@@ -63,6 +63,7 @@ func prepare_spawners() -> void:
 ## Function to spawn a single spawner
 func spawn_spawner(position: Vector3) -> void:
 	var spawner = spawner_scene.instantiate()
+	spawner.game_controller = $GameController
 	add_child(spawner)
 	spawner.global_transform.origin = position
 	

@@ -5,7 +5,11 @@ extends CanvasLayer
 @export var speed_label: Label
 @export var upgrade_label: Label
 @export var ammo_label: Label
+@export var hp_label: Label
 @export var minimap: ColorRect
+@export var tower: Node
+@export var game_controller: Node
+
 
 @export var upgrade_text_display_length: float
 
@@ -39,6 +43,7 @@ func _process(delta):
 	update_speed()
 	update_minimap()
 	update_pickup()
+	update_hp()
 	
 	if displaying_upgrade:
 		upgrade_text_timer += delta
@@ -97,3 +102,9 @@ func update_pickup():
 			$Sprite2D.texture = spinach_icon
 	else:
 		$Sprite2D.texture = null
+
+func update_hp():
+	if not game_controller.game_over:
+		hp_label.text = "%d" % tower.current_health
+	else:
+		hp_label.text = "0"

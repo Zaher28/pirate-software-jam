@@ -3,12 +3,34 @@ class_name Pickups
 
 @export var gun: PackedScene
 
+@export var equip_sound = load("res://assets/sounds/sfx/ding.wav")
+@export var shotgun_equip_sound = load("res://assets/sounds/sfx/shotgun_pump1.wav")
+@export var grow_sound = load("res://assets/sounds/sfx/wahwahwah.wav")
+@export var spinach_sound = load("res://assets/sounds/sfx/eat.wav")
+@export var shoot_sound = load("res://assets/sounds/sfx/shoot2.wav")
+
 var pickup: Pickups
 var player: Node
+var sfx: Node
 
 var rotation_speed = .05
 #For RNG
 var rng = RandomNumberGenerator.new()
+
+func _ready():
+	rng.randomize()
+	$Hitbox.body_entered.connect(give_pickup) #Connect signal to give_pickup
+	player = get_tree().get_first_node_in_group("player")
+	sfx = player.get_node("SFXPlayer")
+	
+	var random_number = rng.randi_range(0, 2)
+	
+	if random_number == 0:
+		pickup = GrowPickUp.new(player)
+	elif random_number == 1:
+		pickup = ShotgunPickUp.new(player, gun)
+	elif random_number == 2:
+		pickup = InstakillPickUp.new(player)
 
 class ShotgunPickUp:
 	extends Pickups
@@ -24,8 +46,11 @@ class ShotgunPickUp:
 	func _init(player: Node, gun: PackedScene):
 		self.player = player
 		self.gun = gun
+		self.sfx = player.get_node("SFXPlayer")
 		
 	func setup():
+		sfx.set_stream(shotgun_equip_sound)
+		sfx.play()
 		gun_cone = gun.instantiate()
 		gun_cone.body_entered.connect(_on_shotgun_cone_entered)
 		gun_cone.body_exited.connect(_on_shotgun_cone_exited)
@@ -36,6 +61,8 @@ class ShotgunPickUp:
 		
 	func use():
 		print("Shoot!")
+		sfx.set_stream(shoot_sound)
+		sfx.play()
 		for enemy in enemies_in_area:
 			if enemy.health < shotgun_damage:
 				self.player.enemy_killed.emit()
@@ -66,8 +93,11 @@ class InstakillPickUp:
 	
 	func _init(player: Node):
 		self.player = player
+		self.sfx = player.get_node("SFXPlayer")
 	
 	func use():
+		sfx.set_stream(spinach_sound)
+		sfx.play()
 		player.danger_speed -= instakill_danger_speed_change
 		player.damage_mult *= instakill_damage_multiplier
 		
@@ -85,9 +115,12 @@ class GrowPickUp:
 	
 	func _init(player: Node):
 		self.player = player
+		self.sfx = player.get_node("SFXPlayer")
 	
 	#When pickup is used
 	func use():
+		sfx.set_stream(grow_sound)
+		sfx.play()
 		player.find_child("Animation").play("Grow")
 		player.danger_speed = 2
 		player.damage_mult *= 2
@@ -99,20 +132,6 @@ class GrowPickUp:
 		player.danger_speed = 7
 		player.damage_mult /= 2
 		player.hitbox_scale_value /= 3
-
-func _ready():
-	rng.randomize()
-	$Hitbox.body_entered.connect(give_pickup) #Connect signal to give_pickup
-	player = get_tree().get_first_node_in_group("player")
-	
-	var random_number = rng.randi_range(0, 2)
-	
-	if random_number == 0:
-		pickup = GrowPickUp.new(player)
-	elif random_number == 1:
-		pickup = ShotgunPickUp.new(player, gun)
-	elif random_number == 2:
-		pickup = InstakillPickUp.new(player)
 		
 func setup():
 	pass
@@ -126,6 +145,8 @@ func _process(delta):
 func give_pickup(body: Node3D):
 	if body.name == "Player":
 		if body.has_pickup == false and body.using_pickup == false:
+			sfx.set_stream(equip_sound)
+			sfx.play()
 			pickup.setup()
 			body.get_pickup(pickup)
 			print("Obtained %s" % [pickup._name])

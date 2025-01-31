@@ -40,6 +40,7 @@ shotgun_cone=""
 game_controller=""
 wall=""
 spawner=""
+<<<<<<<Updatedupstreamlose_screen=""
 lose_screen=""
 
 [gui]

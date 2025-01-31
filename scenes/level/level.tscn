@@ -53,8 +53,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.589, 0)
 script = ExtResource("1_ydqep")
 spawner_scene = ExtResource("6_wj5dm")
 
-[node name="HUD" parent="." node_paths=PackedStringArray("ammo_label") instance=ExtResource("2_vb782")]
+[node name="HUD" parent="." node_paths=PackedStringArray("ammo_label", "tower", "game_controller") instance=ExtResource("2_vb782")]
 ammo_label = NodePath("AmmoLabel")
+tower = NodePath("../Tower")
+game_controller = NodePath("../GameController")
 
 [node name="AmmoLabel" parent="HUD" index="4"]
 offset_left = 1038.0
@@ -90,7 +92,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 [node name="UpdateManager" parent="Player" index="6" node_paths=PackedStringArray("hud")]
 hud = NodePath("../../HUD")
 
-[node name="Tower" parent="." groups=["wall"] instance=ExtResource("3_uw762")]
+[node name="Tower" parent="." groups=["tower"] instance=ExtResource("3_uw762")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.946, 0)
 script = ExtResource("4_6mg1e")
 
@@ -302,6 +304,7 @@ light_volumetric_fog_energy = 3.424
 shadow_enabled = true
 sky_mode = 1
 
+[connection signal="death" from="Tower" to="GameController" method="_on_tower_death"]
 [connection signal="death" from="Tower" to="Stopwatch" method="_on_tower_death"]
 
 [editable path="HUD"]

@@ -23,6 +23,7 @@ direction = Vector3(10, 3, 0)
 spread = 84.036
 flatness = 0.738
 initial_velocity_max = 4.0
+gravity = Vector3(0, 4.5, 0)
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 turbulence_noise_strength = 3.3
@@ -151,6 +152,11 @@ update5 = 185
 update6 = 250
 update7 = 330
 update8 = 420
+
+[node name="SFXPlayer" type="AudioStreamPlayer3D" parent="."]
+
+[node name="MusicPlayer" type="AudioStreamPlayer3D" parent="."]
+volume_db = -20.0
 
 [connection signal="enemy_killed" from="." to="UpdateManager" method="_on_enemy_killed"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
