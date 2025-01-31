@@ -129,6 +129,9 @@ randomness = 0.2
 process_material = SubResource("ParticleProcessMaterial_bkf08")
 draw_pass_1 = SubResource("SphereMesh_0ac7g")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.754259, 3.99488, 0)
+
 [node name="PickupTimer" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
