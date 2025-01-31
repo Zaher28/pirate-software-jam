@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dyasovci7sywa"]
+[gd_scene load_steps=3 format=3 uid="uid://c2wrbk2qspm6f"]
 
 [ext_resource type="PackedScene" uid="uid://d14aqv88tmyfu" path="res://assets/fence.glb" id="1_hpouc"]
 
@@ -7,7 +7,7 @@ size = Vector3(8.31396, 8.75244, 1)
 
 [node name="fence" instance=ExtResource("1_hpouc")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." index="10"]
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="10" groups=["wall"]]
 collision_layer = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]

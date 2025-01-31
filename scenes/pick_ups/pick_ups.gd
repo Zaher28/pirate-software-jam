@@ -91,12 +91,14 @@ class GrowPickUp:
 		player.find_child("Animation").play("Grow")
 		player.danger_speed = 2
 		player.damage_mult *= 2
+		player.hitbox_scale_value *= 3
 
 	#When pickup time passes (I think only for passives?)
 	func revert():
 		player.find_child("Animation").play_backwards("Grow")
 		player.danger_speed = 7
 		player.damage_mult /= 2
+		player.hitbox_scale_value /= 3
 
 func _ready():
 	rng.randomize()

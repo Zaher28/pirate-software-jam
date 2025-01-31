@@ -38,6 +38,7 @@ enemy=""
 pickup=""
 shotgun_cone=""
 game_controller=""
+wall=""
 
 [gui]
 

@@ -26,6 +26,8 @@ extends CharacterBody3D
 @export var hitbox_scale_value = 0.1
 # How much to knock back the player and enemy when they collide and the enemy doesn't die (percentage of speed).
 @export var knockback_factor = 1.2
+# What percentage of momentum the player keeps when bouncing off a wall
+@export var wall_bounce_factor = 0.8
 
 var has_pickup = false
 var using_pickup = false
@@ -37,6 +39,7 @@ var recovery_direction = 0
 var recovery_camera = 1
 var do_friction = true
 var can_flip_camera = true
+var bouncing = false
 
 signal enemy_killed
 
@@ -126,7 +129,7 @@ func _physics_process(delta: float) -> void:
 		recovery_camera = sign($CameraPivot/Camera3D.position.x)
 		course_correcting = true
 		# Apply drift boost if you drifted for long enough
-		if abs($Pivot.rotation_degrees.x) > 5:
+		if abs($Pivot.rotation_degrees.x) > 3:
 			velocity *= drift_boost
 	
 	# pivot back to the correct direction after drifting
@@ -138,6 +141,10 @@ func _physics_process(delta: float) -> void:
 			$CameraPivot.rotation_degrees.y = $Pivot.rotation_degrees.y
 			$Pivot.rotation_degrees.x = 0
 			course_correcting = false
+	
+	# pivot back to the correct direction after bouncing
+	if bouncing:
+		pass
 	
 	# show the wheel rotating in the direction of the velocity
 	if velocity != Vector3.ZERO and not Input.is_action_pressed("brake_drift"):
@@ -209,6 +216,7 @@ func use_pickup():
 
 # Logic for damaging enemies
 func _on_hitbox_body_entered(body):
+	print(body)
 	if velocity.length() > danger_speed and body.is_in_group("enemy"):
 		if body.health > damage_mult * velocity.length():
 			body.velocity = velocity * knockback_factor
@@ -216,6 +224,9 @@ func _on_hitbox_body_entered(body):
 		else:
 			enemy_killed.emit()
 		body.hurt(damage_mult * velocity.length())
+	elif body.is_in_group("wall"):
+		velocity *= -1 * wall_bounce_factor
+		bouncing = true
 
 #When pickup time passes or when pickup uses depleted
 func _on_pickup_finished():

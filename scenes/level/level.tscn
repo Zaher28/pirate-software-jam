@@ -10,7 +10,7 @@
 [ext_resource type="Shader" path="res://scenes/level/level.gdshader" id="6_m1hm6"]
 [ext_resource type="PackedScene" uid="uid://uf3pparja48s" path="res://scenes/spawner/enemy_spawner.tscn" id="6_wj5dm"]
 [ext_resource type="PackedScene" uid="uid://c4mrp7l3s7gtn" path="res://assets/wheel.glb" id="8_8nk73"]
-[ext_resource type="PackedScene" uid="uid://dyasovci7sywa" path="res://scenes/level/fence.tscn" id="11_c6l2l"]
+[ext_resource type="PackedScene" uid="uid://c2wrbk2qspm6f" path="res://scenes/level/fence.tscn" id="11_c6l2l"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yd3db"]
 

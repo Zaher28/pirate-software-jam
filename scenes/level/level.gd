@@ -2,9 +2,9 @@ extends Node3D
 
 @export var spawner_scene: PackedScene # Drag and drop the enemy spawner scene here
 @export var tower_position: Vector3 # Position of the tower
-@export var ring_radii: Array[float] = [24.0, 48.0, 72.0] # Radii of the rings (inner to outer)
+@export var ring_radii: Array[float] = [24.0, 36.0, 52.0] # Radii of the rings (inner to outer)
 @export var spawners_per_ring: Array[int] = [4, 8, 12] # Number of spawners per ring (inner to outer)
-@export var ring_thickness: float = 24.0 # Thickness of the ring zones
+@export var ring_thickness: float = 12.0 # Thickness of the ring zones
 @export var spawn_duration: float = 120.0 # Total duration to add all spawners
 @export var initial_delay: float = 7.0 # Starting delay between spawns
 @export var exponential_decay_rate: float = 0.01 # Controls delay reduction over time

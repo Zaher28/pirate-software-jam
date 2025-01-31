@@ -1,7 +1,7 @@
 extends Node3D
 
 # The HUD Node
-@export var hud: Control
+@export var hud: CanvasLayer
 # Number of enemies killed to unlock each upgrade
 @export var update1: int
 @export var update2: int

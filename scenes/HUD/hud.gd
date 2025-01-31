@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 #This node is where we (probably) put the spinning wheel too
 @export var stopwatch_label: Label
 @export var highscore_label: Label
